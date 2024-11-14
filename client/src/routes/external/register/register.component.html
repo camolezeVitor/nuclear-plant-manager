@@ -1,0 +1,92 @@
+<section class="container-register">
+
+    <div class="container-register-descricao-aba">
+        <h1 class="container-titulo-register"><strong>CADASTRO</strong></h1>
+        <p>Realize o cadastro para prosseguir com o software</p>
+    </div>
+
+    <form class="w-full pl-10 pr-10 gap-5 flex flex-col items-center max-h-96 overflow-y-auto">
+
+        <div class="flex flex-col gap-0.5 w-full">
+            <label for="codigo-de-registro">Código de Registro</label>
+            <input 
+                pInputText 
+                type="text"
+                id="codigo-de-registro" 
+                aria-describedby="codigo-de-registro" />
+            <small id="codigo-help">
+                Por favor, informe um código de registro como por exemplo
+                &#64;almir.rogerio.camoleze
+            </small>
+        </div>
+
+        <div class="flex flex-col gap-0.5 w-full">
+            <label for="nome-usuario">Nome do usuário</label>
+            <input 
+                pInputText 
+                type="text"
+                id="nome-usuario" 
+                aria-describedby="nome-usuario" />
+            <small id="codigo-help">
+                Informe seu nome completo
+            </small>
+        </div>
+
+        <div class="flex flex-col gap-0.5 w-full">
+            <label for="nome-usuario">Cargo</label>
+            <p-select [options]="cargos" 
+                optionLabel="nome" 
+                styleClass="w-full"
+                [style]="{width: '100%'}"
+                placeholder="Selecione seu cargo" 
+                class="w-full md:w-56" />
+            <small id="codigo-help">
+                Em qual cargo você trabalha?
+            </small>
+        </div>
+
+        <div class="flex flex-col gap-0.5 w-full">
+            <label for="senha-do-usuario">Senha</label>
+            <p-password 
+                id="senha-do-usuario"
+                autocomplete="off"
+                styleClass="w-full"
+                [inputStyle]="{width: '100%'}">
+                <ng-template pTemplate="header">
+                    <div class="font-semibold text-xm mb-4">Selecione uma senha</div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-divider />
+                    <ul class="pl-2 ml-2 my-0 leading-normal">
+                        <li>Pelo ao menos uma letra minúscula</li>
+                        <li>Pelo ao menos uma letra maiúscula</li>
+                        <li>Pelo ao menos um número</li>
+                        <li>Mínimo de 8 caractéres</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+            <small id="senha-help">Informe a senha</small>
+        </div>
+        
+
+        <!-- <p class="text-center">
+            já possui uma conta???
+            <a href="#" class="font-mediu hover:underline">
+                Faça login então!
+            </a>
+        </p> -->
+
+        <reactor-register-dialog-termos-de-uso />
+
+    </form>
+
+    
+
+    <div class="container-register-creditos">
+        <p>Desenvolvido por</p>
+        <strong>Vitão H. [Frontend] & Uryel Jo [Backend]</strong>
+    </div>
+
+</section>
+<section class="container-avaliacoes">
+</section>

@@ -1,0 +1,90 @@
+<p-button (click)="abrirDialog()" label="Termos de uso" />
+
+<p-dialog 
+    header="Termos de Uso" 
+    [modal]="true" 
+    [(visible)]="dialogVisivel" 
+    [draggable]="false"
+    [style]="{ width: '700px' }">
+
+    <div>
+        <p>
+            Ao utilizar este software, você concorda com os seguintes Termos de Uso (não que você tenha muita escolha, certo?). 
+            Este documento é o nosso jeito simpático de avisar que, caso você faça qualquer besteira, a usina inteira pode virar
+            uma nuvem radioativa. Então, por favor, use com responsabilidade (e se possível, com uma certa noção do que está fazendo).
+        </p>
+        <p-divider />
+        <h3><strong>1. Uso Adequado e Esperado</strong></h3>
+        <p>
+            Este software foi projetado para controle sério e preciso das operações da usina nuclear. Brincadeiras de 
+            "apertar botões aleatórios" ou "ver o que isso faz" não são recomendadas, a menos que você ache interessante 
+            viver em um deserto de vidro.
+        </p>
+        <p-divider />
+        <h3><strong>2. Limitação de Responsabilidade</strong></h3>
+        <p>
+            Vamos ser diretos: qualquer erro cometido por você – seja por curiosidade, despreparo ou apenas falta de sorte – é 
+            responsabilidade sua. Nós, os criadores do software, não nos responsabilizamos por incidentes 
+            causados pela sua criatividade mal direcionada.
+        </p>
+        <p-divider />
+        <h3><strong>3. Capacidade Técnica do Usuário</strong></h3>
+        <p>
+            Ao utilizar este software, você confirma que é altamente qualificado, extremamente responsável, e talvez até mesmo um 
+            pouquinho tenso com segurança nuclear. Se você não se encaixa nessa descrição, recomendamos fortemente que se afaste 
+            deste computador.
+        </p>
+        <p-divider />
+        <h3><strong>4. Consequências do Uso Indevido</strong></h3>
+        <p>
+            Vamos imaginar que você teve a brilhante ideia de ignorar os alertas, passar pelos procedimentos de segurança e, 
+            quem sabe, clicar onde não devia. Nesse caso, aqui está o resumo do que pode acontecer:
+        </p>
+        <ul>
+            <li> 1. As luzes piscam</li>
+            <li> 2. Os alarmes tocam</li>
+            <li> 3. E a usina (junto com uma boa parte da sua cidade) pode deixar de existir.</li>
+        </ul>
+        <p-divider />
+        <h3><strong>5. Declaração de Risco</strong></h3>
+        <p>
+            Ao aceitar estes Termos de Uso, você também reconhece que este software, embora extremamente avançado e cuidadosamente 
+            desenvolvido, não faz milagres. É um software, não uma varinha mágica. Ou seja, ele depende de você para funcionar
+             corretamente. Sim, estamos falando exatamente com você.
+        </p>
+        <p-divider />
+        <h3><strong>6. Isenção de Garantia</strong></h3>
+        <p>
+            Este software é oferecido "como está" e sem garantias de que você, ao usá-lo, não causará um colapso total das operações. 
+            Se o sistema piscar, congelar ou começar a emitir um som alarmante – bom, talvez seja uma boa ideia rever seus passos.
+        </p>
+        <p class="mt-3">
+            Ao clicar em "Aceito", você confirma que leu, entendeu e, acima de tudo, respeita as implicações destes Termos de Uso. 
+            Por favor, tenha isso em mente antes de prosseguir e, por tudo o que é mais seguro, não faça nenhuma besteira.
+            <br>
+        </p>
+        <p class="mt-3">
+            Obrigado pela compreensão. Boa sorte. E... estamos torcendo para que você não aperte o botão vermelho! :)
+        </p>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex flex-col gap-2">
+            <p>Você concorda com o quê foi escrito acima?</p>
+            <div class="flex flex-row justify-end">
+                <p-button 
+                    label="Não" 
+                    [text]="true" 
+                    severity="secondary" 
+                    (click)="dialogVisivel = false" />
+                <p-button 
+                    label="Acho que Sim" 
+                    [outlined]="true" 
+                    severity="primary" 
+                    (click)="dialogVisivel = false" 
+                />
+            </div>
+        </div>
+    </ng-template>
+
+</p-dialog>
