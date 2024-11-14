@@ -1,0 +1,71 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background-image: url("/assets/foto_menu_login.jpg");
+    background-size: cover;
+}
+
+.container-login {
+    height: 100%;
+    width: 525px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+    box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.150);
+    background-color: rgb(245, 245, 245);
+    color: #1d1e20;
+}
+
+.container-titulo-login {
+    margin-bottom: 0;
+    font-size: xxx-large;
+}
+
+.container-login-descricao-aba {
+    text-align: center;
+}
+
+.container-login-creditos {
+    text-align: center;
+}
+
+.container-avaliacoes {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card-avaliacao {
+    width: 300px;
+    height: 70px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.044);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    border: 1px solid white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.grande {
+    width: 500px;
+    scale: 1.5;
+}
+
+.imagem-usuario {
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 1px solid white;
+    aspect-ratio: 1 / 1;
+}
