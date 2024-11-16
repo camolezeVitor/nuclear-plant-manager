@@ -1,0 +1,99 @@
+<form class="w-full h-5/6 flex flex-row p-2" [formGroup]="formulario">
+    <div class="flex flex-col w-2/6 gap-2 p-2">
+      <h2><strong>Informações do Setor</strong></h2>
+      
+      <div class="flex flex-col">
+        <label for="codigoSetor">Código do Setor</label>
+        <input pInputText id="codigoSetor" formControlName="codigoSetor" placeholder="Digite o código do setor" />
+      </div>
+    
+      <div class="flex flex-col">
+        <label for="nome">Nome</label>
+        <input pInputText id="nome" formControlName="nome" placeholder="Digite o nome do setor" />
+      </div>
+    
+      <div class="flex flex-col">
+        <label for="qtdItmProdMax">Qtd. Máx. de Produtos</label>
+        <p-inputNumber id="qtdItmProdMax" formControlName="qtdItmProdMax" [min]="0"></p-inputNumber>
+      </div>
+    
+      <div class="flex flex-col">
+        <label for="maxFuncionarios">Máx. de Funcionários</label>
+        <p-inputNumber id="maxFuncionarios" formControlName="maxFuncionarios" [min]="0"></p-inputNumber>
+      </div>
+    
+      <div class="flex flex-col">
+        <label for="medidaDeProd">Medida de Produção</label>
+        <input pInputText id="medidaDeProd" formControlName="medidaDeProd" placeholder="Digite a medida de produção" />
+      </div>
+    
+      <div class="flex flex-col">
+        <label for="tipoSetorId">Tipo de Setor</label>
+        <p-dropdown
+          id="tipoSetorId"
+          formControlName="tipoSetorId"
+          [options]=""
+          optionLabel="label"
+          placeholder="Selecione o tipo de setor"
+        ></p-dropdown>
+      </div>
+  
+      <button pButton class="float-right mt-2" [severity]="buttonStyle()!.severity"
+        [disabled]="formulario.invalid"> 
+        <i [class]="buttonStyle()!.icon"></i>
+        {{ buttonStyle()!.label }}
+      </button>
+    
+    </div>
+    
+    <div class="flex flex-col w-2/6 p-2 gap-2">
+      <h2><strong>Dependências do Setor</strong></h2>
+      <div class="overflow-y-auto">
+        <p-table responsiveLayout="scroll" [value]="medidas()">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>#</th>
+              <th>Unidade</th>
+              <th>Qtd</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-unidade>
+            <tr>
+              <td>
+                <p-checkbox />
+              </td>
+              <td>{{ unidade.valor }}</td>
+              <td>
+                <input pInputText />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  
+    <div class="flex flex-col w-2/6 p-2 gap-2">
+      <h2><strong>Funcionários do Setor</strong></h2>
+      <div class="overflow-y-auto">
+        <p-table responsiveLayout="scroll" [value]="funcionarios()">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>#</th>
+              <th>Funcionario</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-funcionario>
+            <tr>
+              <td>
+                <p-checkbox />
+              </td>
+              <td>
+                <strong>{{ funcionario.nome }}</strong>
+                <p>{{ funcionario.cargo }}</p>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+</form>

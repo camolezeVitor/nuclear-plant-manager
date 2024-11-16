@@ -1,0 +1,21 @@
+<div class="w-80">
+    <label for="codigo-do-setor-a-ser-editado">Código do Setor</label>
+    <p-inputgroup>
+        <p-button severity="primary">
+            <i class="pi pi-eye"></i>
+            Abrir edição
+        </p-button>
+        <input type="text" pInputText placeholder="AA99" id="codigo-do-setor-a-ser-editado">
+    </p-inputgroup>
+</div>
+
+<p-dialog header="Editar o Setor X" [modal]="true" [(visible)]="dialogVisivel" [style]="{ width: '90%' }">
+    <reactor-setor-formulario
+        [funcionarios]="funcionarios"
+        [medidas]="medidas"
+        [buttonStyle]="{
+            label: 'Salvar Alterações',
+            icon: 'pi pi-save',
+            severity: 'success'
+        }"/>
+</p-dialog>

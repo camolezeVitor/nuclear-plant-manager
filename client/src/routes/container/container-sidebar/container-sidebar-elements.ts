@@ -26,16 +26,14 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
         label: "Setores",
         items: [
             {
-                label: "Visualizar",
-                icon: "pi pi-eye"
-            },
-            {
                 label: "Alterar",
-                icon: "pi pi-pencil"
+                icon: "pi pi-pencil",
+                routerLink: "setor-alterar"
             },
             {
                 label: "Gerenciar",
-                icon: "pi pi-sliders-v"
+                icon: "pi pi-sliders-v",
+                routerLink: 'setor-gerenciar'
             },
             {
                 label: "Cadeia de Suprimentos",
@@ -44,7 +42,8 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
             },
             {
                 label: "Adicionar",
-                icon: "pi pi-plus"
+                icon: "pi pi-plus",
+                routerLink: 'setor-adicionar'
             }
         ]
     },
