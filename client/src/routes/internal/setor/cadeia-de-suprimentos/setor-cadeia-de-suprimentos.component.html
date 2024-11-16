@@ -1,0 +1,36 @@
+<p-organization-chart [value]="data" class="h-full w-full">
+    <ng-template let-node pTemplate="default">
+        <div class="flex flex-col w-64 gap-1 items-center">
+
+            <p-tag [value]="node.data.tipo" 
+                [severity]="node.data.tipo == 'FORNECEDOR' ? 'info' : 'success'" 
+                [style]="{
+                position: 'absolute',
+                left: '-10px',
+                top: '-10px'
+            }" />
+
+            <div class="font-medium text-lg">{{ node.label }}</div>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-hammer"></i>
+                </p-inputgroup-addon>
+                <input pInputText readonly [value]="node.data.producao" />
+            </p-inputgroup>
+
+            @if (node.data.requisitos) {
+            <div class="w-full flex flex-row items-center gap-1">
+                <i class="pi pi-sort-down-fill"></i>
+                <div class="text-left">
+                    @for (req of node.data.requisitos; track $index) {
+                        <p class="m-0">
+                            {{ req }}
+                        </p>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </ng-template>
+</p-organization-chart>

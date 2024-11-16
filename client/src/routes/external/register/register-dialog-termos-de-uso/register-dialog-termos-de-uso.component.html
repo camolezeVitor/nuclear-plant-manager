@@ -1,4 +1,7 @@
-<p-button (click)="abrirDialog()" label="Termos de uso" />
+<p-button 
+    [severity]="estadoCondicaoAceitacao()  ? 'success' : 'danger'"
+    (click)="abrirDialog()" 
+    label="Termos de uso" />
 
 <p-dialog 
     header="Termos de Uso" 
@@ -76,12 +79,12 @@
                     label="Não" 
                     [text]="true" 
                     severity="secondary" 
-                    (click)="dialogVisivel = false" />
+                    (click)="emitirEstadoDeAceitacaoEFecharODialog('NAO')" />
                 <p-button 
                     label="Acho que Sim" 
                     [outlined]="true" 
                     severity="primary" 
-                    (click)="dialogVisivel = false" 
+                    (click)="emitirEstadoDeAceitacaoEFecharODialog('SIM')" 
                 />
             </div>
         </div>

@@ -5,31 +5,32 @@
         <p>Realize o cadastro para prosseguir com o software</p>
     </div>
 
-    <form class="w-full pl-10 pr-10 gap-5 flex flex-col items-center max-h-96 overflow-y-auto">
+    <form class="w-full pl-14 pr-14 gap-5 flex flex-col items-center max-h-96 h-80 overflow-y-auto">
 
-        <div class="flex flex-col gap-0.5 w-full">
-            <label for="codigo-de-registro">Código de Registro</label>
-            <input 
-                pInputText 
-                type="text"
-                id="codigo-de-registro" 
-                aria-describedby="codigo-de-registro" />
-            <small id="codigo-help">
-                Por favor, informe um código de registro como por exemplo
-                &#64;almir.rogerio.camoleze
-            </small>
-        </div>
-
-        <div class="flex flex-col gap-0.5 w-full">
-            <label for="nome-usuario">Nome do usuário</label>
-            <input 
-                pInputText 
-                type="text"
-                id="nome-usuario" 
-                aria-describedby="nome-usuario" />
-            <small id="codigo-help">
-                Informe seu nome completo
-            </small>
+        <div class="w-full flex flex-row justify-between gap-4">
+            <div class="flex flex-col gap-0.5 w-2/5">
+                <label for="codigo-de-registro">Código de Registro</label>
+                <input 
+                    pInputText 
+                    type="text"
+                    id="codigo-de-registro" 
+                    aria-describedby="codigo-de-registro" />
+                <small id="codigo-help">
+                    Exemplo: &#64;almir.rogerio.camoleze
+                </small>
+            </div>
+    
+            <div class="flex flex-col gap-0.5 w-3/5">
+                <label for="nome-usuario">Nome do usuário</label>
+                <input 
+                    pInputText 
+                    type="text"
+                    id="nome-usuario" 
+                    aria-describedby="nome-usuario" />
+                <small id="codigo-help">
+                    Informe seu nome completo
+                </small>
+            </div>
         </div>
 
         <div class="flex flex-col gap-0.5 w-full">
@@ -47,7 +48,12 @@
 
         <div class="flex flex-col gap-0.5 w-full">
             <label for="senha-do-usuario">Senha</label>
-            <p-password 
+            <p-password
+                promptLabel="Escolha uma senha forte"
+                appendTo="body"
+                weakLabel="Fraca"
+                mediumLabel="Média"
+                strongLabel="Forte"
                 id="senha-do-usuario"
                 autocomplete="off"
                 styleClass="w-full"
@@ -76,11 +82,23 @@
             </a>
         </p> -->
 
-        <reactor-register-dialog-termos-de-uso />
-
     </form>
 
-    
+    <div class="flex flex-row gap-2 items-center">
+        <reactor-register-dialog-termos-de-uso 
+            [estadoCondicaoAceitacao]="usuarioAceitouOsTermos"
+            (condicaoAceitacaoEmmit)="alterarEstadoDaCondicaoDeAceitacaoDeTermosPeloUsuario($event)" />
+        
+            <div class="flex flex-row gap-1">
+                <i class="pi pi-chevron-right"></i>
+                <i class="pi pi-chevron-right"></i>
+                <i class="pi pi-chevron-right"></i>
+            </div>
+
+            <p-button severity="primary" [disabled]="!usuarioAceitouOsTermos">
+            <strong> Cadastrar-se </strong>
+        </p-button>
+    </div>
 
     <div class="container-register-creditos">
         <p>Desenvolvido por</p>

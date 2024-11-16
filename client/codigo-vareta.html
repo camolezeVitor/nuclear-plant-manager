@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Círculo Preenchido com Divs</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .circle-container {
+      position: relative;
+      width: 300px; /* Diâmetro do círculo */
+      height: 300px; /* Diâmetro do círculo */
+      overflow: hidden;
+    }
+
+    .circle-container .square {
+      position: absolute;
+      width: 20px; /* Tamanho de cada div quadrada */
+      height: 20px;
+      background-color: #4ed000;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="circle-container" id="circle-container"></div>
+
+  <script>
+    function createFilledCircle(containerId, divSize) {
+      const container = document.getElementById(containerId);
+      const diameter = container.offsetWidth;
+      const radius = diameter / 2;
+
+      // Número de divisões horizontais e verticais
+      const gridCount = Math.ceil(diameter / divSize);
+
+      for (let y = 0; y < gridCount; y++) {
+        for (let x = 0; x < gridCount; x++) {
+          // Calcular a posição do centro do quadrado
+          const squareX = x * divSize + divSize / 2;
+          const squareY = y * divSize + divSize / 2;
+
+          // Calcular a distância do centro do círculo
+          const distance = Math.sqrt(
+            Math.pow(squareX - radius, 2) + Math.pow(squareY - radius, 2)
+          );
+
+          // Se o quadrado estiver dentro do círculo, adicioná-lo
+          if (distance <= radius) {
+            const div = document.createElement('div');
+            div.className = 'square';
+            div.style.left = `${x * divSize}px`;
+            div.style.top = `${y * divSize}px`;
+            container.appendChild(div);
+          }
+        }
+      }
+    }
+
+    // Configuração: alterar o tamanho das divisões (divSize) para mais precisão
+    createFilledCircle('circle-container', 20);
+  </script>
+</body>
+</html>

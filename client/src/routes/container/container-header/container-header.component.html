@@ -1,0 +1,31 @@
+<p-toolbar>
+
+    <section>
+        <p-inputgroup class="md:!w-80">
+            <p-inputgroup-addon>
+                <i class="pi pi-arrow-down"></i>
+            </p-inputgroup-addon>
+            <input pInputText value="1.000.000 KWH" readonly />
+            <p-inputgroup-addon>
+                <div class="flex flex-row gap-1 items-center">
+                    <i class="pi pi-clock"></i>
+                    20:00
+                </div>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+    </section>
+
+    <section class="w-4/6">
+        <p-iconfield iconPosition="left" class="w-full">
+            <p-inputicon styleClass="pi pi-exclamation-triangle" />
+            <input type="text" pInputText class="w-full" placeholder="Search" />
+        </p-iconfield>
+    </section>
+
+    <section>
+        <p-button class="mr-2" severity="primary">
+            <i class="pi pi-user"></i>
+        </p-button>
+    </section>
+
+</p-toolbar>
