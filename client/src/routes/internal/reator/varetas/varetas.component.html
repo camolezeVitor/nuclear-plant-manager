@@ -1,0 +1,102 @@
+<!--Varetas-->
+@for (vareta of varetas; track $index) {
+    <reactor-vareta 
+        [left]="vareta.left"
+        [top]="vareta.top"/>
+}
+<!--Varetas-->
+
+<div class="h-full gap-2 flex w-full flex-row p-2" id="circle-container">
+    <!-- Infos Varetas 1-->
+    <div class="flex flex-col w-1/2 justify-between h-full">
+        <p-panel header="Proporção do Núcleo">
+            <section class="flex flex-row">
+                <div class="flex flex-col">
+                    <strong>C</strong>
+                    <small>Combustível</small>
+                    <p class="m-0">10</p>
+                </div>
+                <p-divider layout="vertical" />
+                <div class="flex flex-col">
+                    <strong>M</strong>
+                    <small>Mediadoras</small>
+                    <p class="m-0">10</p>
+                </div>
+                <p-divider layout="vertical" />
+                <div class="flex flex-col">
+                    <strong>B</strong>
+                    <small>Barras/Controle</small>
+                    <p class="m-0">10</p>
+                </div>
+                <p-divider layout="vertical" />
+                <div class="flex flex-col">
+                    <strong>Total</strong>
+                    <small>Qtd/Varetas</small>
+                    <p class="m-0">30</p>
+                </div>
+            </section>
+        </p-panel>
+
+        <p-panel header="Composição das Varetas">
+            <section class="flex flex-row">
+                <div class="flex flex-col">
+                    <strong>C</strong>
+                    <p>Urânio 236</p>
+                    <small>Coeficiente de Reatividade: 5.42</small>
+                </div>
+                <p-divider layout="vertical" />
+                <div class="flex flex-col">
+                    <strong>M</strong>
+                    <p>Bóro</p>
+                    <small>Coeficiente de Mediação: 10.0</small>
+                </div>
+                <p-divider layout="vertical" />
+                <div class="flex flex-col">
+                    <strong>B</strong>
+                    <p>Grafite</p>
+                    <small>Coeficiente de Parada: 5.03</small>
+                </div>
+            </section>
+        </p-panel>
+    </div>
+    <div class="flex flex-col w-1/2 justify-between h-full">
+        <p-panel header="Altura das Barras de Controle">
+            <section class="flex flex-row">
+                <div class="flex flex-col items-center w-1/2">
+                    <p>Varetas de Controle Rápidas</p>
+                    <p-knob valueTemplate="{value}%" />
+                </div>
+                <div class="flex flex-col items-center w-1/2">
+                    <p>Varetas de Controle Absoluto</p>
+                    <p-knob valueTemplate="{value}%" />
+                </div>
+            </section>
+        </p-panel>
+        <p-panel header="Fornecedores das Varetas">
+            <section class="flex flex-col gap-2">
+                <div class="flex flex-col w-full">
+                    <strong>C</strong>
+                    <small>Combustível</small>
+                    <p class="m-0">
+                        Fornecedor X da rua Tal 
+                    </p>
+                </div>
+                <div class="flex flex-col w-full">
+                    <strong>M</strong>
+                    <small>Mediadoras</small>
+                    <p class="m-0">
+                        Fornecedor X da rua Tal 
+                    </p>
+                </div>
+                <div class="flex flex-col w-full">
+                    <strong>B</strong>
+                    <small>Barras/Controle</small>
+                    <p class="m-0">
+                        Fornecedor X da rua Tal 
+                    </p>
+                </div>
+            </section>
+        </p-panel>
+    </div>
+
+</div>

@@ -15,7 +15,11 @@ import { UNIDADES_DE_MEDIDAS } from "../shared/mock/medidas";
     standalone: true,
 })
 export class AlterarSetorRoute {
-    dialogVisivel = true;
+    dialogVisivel = false;
     funcionarios = FUNCIONARIOS;
     medidas = UNIDADES_DE_MEDIDAS;
+
+    abrirDialogEMostrarItemSelecionado() {
+        this.dialogVisivel = true;
+    }
 }

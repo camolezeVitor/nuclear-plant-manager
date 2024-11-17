@@ -6,7 +6,8 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
         items: [
             {
                 label: "Varetas",
-                icon: "pi pi-sliders-v"
+                icon: "pi pi-sliders-v",
+                routerLink: "reator-varetas"
             },
             {
                 label: "Estado",

@@ -1,0 +1,34 @@
+<p-popover #popOver>
+    <section class="w-52">
+        <p>Você gostaria de alterar o tipo da vareta?</p>
+        <small>
+            Aviso, é recomendado executar essa ação com o
+            reator desligado (por motivos obvios duh!)
+        </small>
+        <p-divider />
+        <button class="w-full" pButton severity="secondary" [text]="true">
+            Combustível
+        </button>
+        <button class="w-full" pButton severity="secondary" [text]="true">
+            Mediador
+        </button>
+        <button class="w-full" pButton severity="secondary" [text]="true">
+            Barra/Controle
+        </button>
+    </section>
+</p-popover>
+
+@if (top && left) {
+    <div class="square"
+    (click)="popOver.toggle($event)"
+    [style]="{
+        cursor: 'pointer',
+        userSelect: 'none',
+        textAlign: 'center',
+        top: top+'px',
+        left: left+'px'
+    }"
+    >
+        <strong>C</strong>
+    </div>
+}

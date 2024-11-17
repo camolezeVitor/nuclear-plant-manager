@@ -8,12 +8,13 @@ import { InputTextModule } from "primeng/inputtext";
 import { TableModule } from "primeng/table";
 import { ADICIONAR_SETOR_FORM } from "../adicionar-setor.form";
 import { FormularioSetorButton } from "./formulario-setor-button-type";
+import { SelectModule } from "primeng/select";
 
 @Component({
     selector: "reactor-setor-formulario",
     templateUrl: "formulario-adicionar-setor.component.html",
     styleUrl: "formulario-adicionar-setor.component.css",
-    imports: [InputTextModule, TableModule, InputNumberModule, DropdownModule, CheckboxModule, ReactiveFormsModule, ButtonModule],
+    imports: [InputTextModule, TableModule, InputNumberModule, SelectModule, CheckboxModule, ReactiveFormsModule, ButtonModule],
     standalone: true
 })
 export class FormularioSetorComponent {

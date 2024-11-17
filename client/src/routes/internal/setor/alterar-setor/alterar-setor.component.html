@@ -1,7 +1,8 @@
 <div class="w-80">
     <label for="codigo-do-setor-a-ser-editado">Código do Setor</label>
     <p-inputgroup>
-        <p-button severity="primary">
+        <p-button severity="primary"
+            (click)="abrirDialogEMostrarItemSelecionado()">
             <i class="pi pi-eye"></i>
             Abrir edição
         </p-button>
@@ -9,8 +10,10 @@
     </p-inputgroup>
 </div>
 
-<p-dialog header="Editar o Setor X" [modal]="true" [(visible)]="dialogVisivel" [style]="{ width: '90%' }">
-    <reactor-setor-formulario
+<p-dialog header="Editar o Setor X" [modal]="true" [(visible)]="dialogVisivel" 
+[style]="{ width: '90%' }" [contentStyle]="{display: 'flex'}">
+    <div class="w-full flex">
+        <reactor-setor-formulario
         [funcionarios]="funcionarios"
         [medidas]="medidas"
         [buttonStyle]="{
@@ -18,4 +21,5 @@
             icon: 'pi pi-save',
             severity: 'success'
         }"/>
+    </div>
 </p-dialog>

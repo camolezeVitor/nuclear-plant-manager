@@ -1,0 +1,13 @@
+.square {
+    position: absolute;
+    width: 30px; /* Tamanho padrão do quadrado */
+    height: 30px;
+    background-color: #5dfd00;
+    border: 1px solid #94a3b8;
+    transition: 0.3s;
+}
+
+.square:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px 0px 0px black, 0px 0px 5px 5px rgba(0, 0, 0, 0.200);
+}

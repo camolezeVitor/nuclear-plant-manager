@@ -27,5 +27,12 @@ export const internalRoutes: Array<Route> = [
         path: "setor-alterar",
         loadComponent: () => import("./setor/alterar-setor/alterar-setor.component")
             .then(comp => comp.AlterarSetorRoute)
+    },
+
+    //ROTAS DO NUCLEO
+    {
+        path: "reator-varetas",
+        loadComponent: () => import("./reator/varetas/varetas.component")
+            .then(comp => comp.VaretasRoute)
     }
 ]
