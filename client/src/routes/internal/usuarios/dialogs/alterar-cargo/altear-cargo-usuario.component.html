@@ -1,0 +1,16 @@
+<div class="w-full h-full flex flex-col items-center gap-2">
+    
+    <p>Coloque o código de registro do Usuário</p>
+    <input type="text" pInputText placeholder="Digite aqui o código">
+    <button pButton severity="primary" [text]="true"> Buscar </button>
+
+    <div class="p-2 gap-2 flex flex-col">
+        <p>Para qual cargo você gostaria de alterar o usuário <strong>Almirzola</strong></p>
+        <p-select appendTo="body" 
+            optionLabel="nome"
+            optionValue="codigo"
+            [options]="cargos"
+            placeholder="Selecione o Cargo" />
+        <button pButton severity="primary"> Alterar Cargo </button>
+    </div>
+</div>

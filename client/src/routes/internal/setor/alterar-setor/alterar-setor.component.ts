@@ -4,8 +4,8 @@ import { DialogModule } from "primeng/dialog";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputTextModule } from "primeng/inputtext";
 import { FormularioSetorComponent } from "../shared/formulario-setor/formulario-adicionar-setor.component";
+import { UNIDADES_DE_MEDIDAS } from "../../../../rules/unidades_de_medida";
 import { FUNCIONARIOS } from "../shared/mock/funcionarios";
-import { UNIDADES_DE_MEDIDAS } from "../shared/mock/medidas";
 
 @Component({
     selector: "reactor-alterar-setor",

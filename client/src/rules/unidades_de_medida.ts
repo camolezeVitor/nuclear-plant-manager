@@ -108,4 +108,3 @@ export const UNIDADES_DE_MEDIDAS = [
       valor: 'W/m²'
     }
 ];
-  

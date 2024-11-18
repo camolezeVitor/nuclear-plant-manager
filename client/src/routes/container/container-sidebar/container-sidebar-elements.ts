@@ -1,6 +1,10 @@
 import { MenuItem } from "primeng/api";
+import { RemoverUsuariosDialog } from "../../internal/usuarios/dialogs/remover-usuarios/remover-usuarios.component";
+import { AlterarCargoDoUsuarioDialog } from "../../internal/usuarios/dialogs/alterar-cargo/altear-cargo-usuario.component";
 
-export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
+export const CONTAINER_SIDEBAR_ELEMENTS = (
+    abrirDialog: Function
+): Array<MenuItem> => ([
     {
         label: "Reator",
         items: [
@@ -51,19 +55,22 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
         items: [
             {
                 label: "Listar",
-                icon: "pi pi-list"
+                icon: "pi pi-list",
+                routerLink: "usuarios-listar"
             },
             {
                 label: "Remover",
-                icon: "pi pi-user-minus"
-            },
-            {
-                label: "Adicionar",
-                icon: "pi pi-user-plus"
+                icon: "pi pi-user-minus",
+                command: () => abrirDialog(
+                    RemoverUsuariosDialog, "Remover um Usuário"
+                )
             },
             {
                 label: "Alterar Cargo",
-                icon: "pi pi-crown"
+                icon: "pi pi-crown",
+                command: () => abrirDialog(
+                    AlterarCargoDoUsuarioDialog, "Alterar Cargo de um Usuário"
+                ),
             }
         ]
     },
@@ -80,7 +87,7 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
             },
             {
                 label: "Adicionar",
-                icon: "pi pi-user-plus"
+                icon: "pi pi-user-plus",
             },
         ]
     },
@@ -93,4 +100,4 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
             }
         ]
     },
-]
+])

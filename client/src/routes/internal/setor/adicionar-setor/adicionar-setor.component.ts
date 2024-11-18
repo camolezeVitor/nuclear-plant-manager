@@ -6,10 +6,10 @@ import { InputTextModule } from "primeng/inputtext";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { ADICIONAR_SETOR_FORM } from "../shared/adicionar-setor.form";
 import { TableModule } from "primeng/table";
-import { UNIDADES_DE_MEDIDAS } from "../shared/mock/medidas";
 import { FUNCIONARIOS } from "../shared/mock/funcionarios";
 import { ButtonModule } from "primeng/button";
 import { FormularioSetorComponent } from "../shared/formulario-setor/formulario-adicionar-setor.component";
+import { UNIDADES_DE_MEDIDAS } from "../../../../rules/unidades_de_medida";
 
 @Component({
     selector: "reactor-adicionar-setor",

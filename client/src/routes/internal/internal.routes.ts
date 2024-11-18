@@ -44,5 +44,12 @@ export const internalRoutes: Array<Route> = [
         path: "reator-gerenciar",
         loadComponent: () => import("./reator/gerenciar/gerenciar-reator.component")
             .then(comp => comp.GerenciarReatorRoute)
+    },
+
+    //ROTAS DO USUÁRIO
+    {
+        path: "usuarios-listar",
+        loadComponent: () => import("./usuarios/listar/listar-usuarios.component")
+            .then(comp => comp.ListarUsuariosRoute)
     }
 ]
