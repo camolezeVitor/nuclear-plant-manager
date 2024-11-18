@@ -43,8 +43,16 @@ public class UserService {
         novoUsuario.setNomeDoUsuario(criarUsuarioRequest.getNome());
         novoUsuario.setCadastro(criarUsuarioRequest.getCadastro());
         novoUsuario.setSenha(securityConfiguration.passwordEncoder().encode(criarUsuarioRequest.getSenha()));
-        novoUsuario.setRoles(List.of(RoleEntity.builder()
-                .role(criarUsuarioRequest.getRules()).build()));
+        Rules role = criarUsuarioRequest.getRules();
+        if (role != null) {
+            RoleEntity roleEntity = RoleEntity.builder()
+                    .role(role)
+                    .build();
+            novoUsuario.setRoles(List.of(roleEntity));
+        } else {
+            throw new IllegalArgumentException("Role informado não é válido.");
+        }
+
         this.userEntityRepository.save(novoUsuario);
     }
 
