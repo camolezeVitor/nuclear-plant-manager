@@ -34,5 +34,15 @@ export const internalRoutes: Array<Route> = [
         path: "reator-varetas",
         loadComponent: () => import("./reator/varetas/varetas.component")
             .then(comp => comp.VaretasRoute)
+    },
+    {
+        path: "reator-estado",
+        loadComponent: () => import("./reator/estado/estado-reator.component")
+            .then(comp => comp.EstadoReatorRoute)
+    },
+    {
+        path: "reator-gerenciar",
+        loadComponent: () => import("./reator/gerenciar/gerenciar-reator.component")
+            .then(comp => comp.GerenciarReatorRoute)
     }
 ]

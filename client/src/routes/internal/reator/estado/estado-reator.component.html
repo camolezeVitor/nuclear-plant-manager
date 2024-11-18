@@ -1,0 +1,33 @@
+<div class="p-2 flex flex-row gap-2 h-full">
+    <div class="flex h-full flex-col w-4/5">
+        <div class="w-full h-1/4">
+            <p-panel header="Estado do Reator" class="col-span-4">
+                <div class="text-center text-xl font-bold text-green-500">
+                    <i class="pi pi-check-circle text-3xl"></i>
+                    <p>Operacional</p>
+                </div>
+            </p-panel>
+        </div>
+        <div class="w-full h-3/4 flex flex-row flex-wrap">
+
+            <p-chart class="w-1/2" type="line" [data]="lineChartData"></p-chart>
+        
+            <p-chart class="w-1/2" type="bar" [data]="barChartData"></p-chart>
+
+            <p-chart class="w-1/2" type="pie" [data]="pieChartData"></p-chart>
+        
+            <p-chart class="w-1/2" type="polarArea" [data]="polarChartData"></p-chart>
+
+        </div>
+    </div>
+    <div class="w-1/5 h-full">
+        <p-panel header="Algumas Informações" class="col-span-2">
+            <ul class="list-disc ml-6 text-sm">
+                <li>Temperatura Atual: 320°C</li>
+                <li>Pressão: 100 atm</li>
+                <li>Produção: 1.2 GW</li>
+                <li>Alertas: Nenhum</li>
+            </ul>
+        </p-panel>
+    </div>
+</div>

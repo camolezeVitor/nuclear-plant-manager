@@ -11,15 +11,13 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
             },
             {
                 label: "Estado",
-                icon: "pi pi-wave-pulse"
+                icon: "pi pi-wave-pulse",
+                routerLink: "reator-estado"
             },
             {
                 label: "Gerenciar",
-                icon: "pi pi-microchip"
-            },
-            {
-                label: "Log",
-                icon: "pi pi-list-check",
+                icon: "pi pi-microchip",
+                routerLink: 'reator-gerenciar'
             }
         ],
     },
@@ -68,5 +66,31 @@ export const CONTAINER_SIDEBAR_ELEMENTS: Array<MenuItem> = [
                 icon: "pi pi-crown"
             }
         ]
-    }
+    },
+    {
+        label: "Fornecedores",
+        items: [
+            {
+                label: "Listar",
+                icon: "pi pi-list"
+            },
+            {
+                label: "Remover",
+                icon: "pi pi-user-minus"
+            },
+            {
+                label: "Adicionar",
+                icon: "pi pi-user-plus"
+            },
+        ]
+    },
+    {
+        label: "Funcionários",
+        items: [
+            {
+                label: "Gerenciar",
+                icon: "pi pi-list"
+            }
+        ]
+    },
 ]
