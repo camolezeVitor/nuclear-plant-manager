@@ -11,7 +11,7 @@ import trabalho.kabummm.config.Security.user.UserDetailsImpl;
 import trabalho.kabummm.config.Token.JwtTokenService;
 import trabalho.kabummm.entity.RoleEntity;
 import trabalho.kabummm.entity.UserEntity;
-import trabalho.kabummm.enums.Rules;
+import trabalho.kabummm.enums.RulesEnum;
 import trabalho.kabummm.repository.RoleEntityRepository;
 import trabalho.kabummm.repository.UserEntityRepository;
 import trabalho.kabummm.request.CriarUsuarioRequest;
@@ -46,7 +46,7 @@ public class UserService {
         novoUsuario.setCadastro(criarUsuarioRequest.getCadastro());
         novoUsuario.setSenha(securityConfiguration.passwordEncoder().encode(criarUsuarioRequest.getSenha()));
 
-        Rules role = criarUsuarioRequest.getRules();
+        RulesEnum role = criarUsuarioRequest.getRulesEnum();
 
         if (role != null) {
             RoleEntity roleEntity = this.roleEntityRepository.findByRole(role);

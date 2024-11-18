@@ -1,6 +1,6 @@
 package trabalho.kabummm.enums;
 
-public enum Rules {
+public enum RulesEnum {
     ADMINISTRADOR,
     GERENTE,
     ENGENHEIRO_DE_SETOR
