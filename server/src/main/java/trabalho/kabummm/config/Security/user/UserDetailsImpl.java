@@ -31,7 +31,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userEntity.getCadastro();
+        return userEntity.getNomeDoUsuario();
     }
 
     @Override

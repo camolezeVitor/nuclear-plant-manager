@@ -12,6 +12,7 @@ import trabalho.kabummm.config.Token.JwtTokenService;
 import trabalho.kabummm.entity.RoleEntity;
 import trabalho.kabummm.entity.UserEntity;
 import trabalho.kabummm.enums.Rules;
+import trabalho.kabummm.repository.RoleEntityRepository;
 import trabalho.kabummm.repository.UserEntityRepository;
 import trabalho.kabummm.request.CriarUsuarioRequest;
 import trabalho.kabummm.request.LogarUsuarioRequest;
@@ -26,6 +27,7 @@ public class UserService {
     private final UserEntityRepository userEntityRepository;
     private final JwtTokenService jwtTokenService;
     private final SecurityConfiguration securityConfiguration;
+    private final RoleEntityRepository roleEntityRepository;
 
     @Transactional
     public String logarUsuario(LogarUsuarioRequest loginRequest) {
@@ -43,14 +45,15 @@ public class UserService {
         novoUsuario.setNomeDoUsuario(criarUsuarioRequest.getNome());
         novoUsuario.setCadastro(criarUsuarioRequest.getCadastro());
         novoUsuario.setSenha(securityConfiguration.passwordEncoder().encode(criarUsuarioRequest.getSenha()));
+
         Rules role = criarUsuarioRequest.getRules();
+
         if (role != null) {
-            RoleEntity roleEntity = RoleEntity.builder()
-                    .role(role)
-                    .build();
+            RoleEntity roleEntity = this.roleEntityRepository.findByRole(role);
+
             novoUsuario.setRoles(List.of(roleEntity));
         } else {
-            throw new IllegalArgumentException("Role informado não é válido.");
+            throw new IllegalArgumentException("O papel (role) informado não é válido.");
         }
 
         this.userEntityRepository.save(novoUsuario);
