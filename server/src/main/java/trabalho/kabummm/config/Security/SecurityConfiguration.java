@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,19 +27,19 @@ public class SecurityConfiguration {
 
     public static final String [] ENDPOINTS_PUBLICOS = {
         "/users/login",
-        "/users/register"
+        "/users/cadastrar"
     };
 
     public static final String [] ENDPOINTS_ADMINISTRADOR = {
-        " "
+        "/testeaaaa/"
     };
 
     public static final String [] ENDPOINTS_GERENTE = {
-            " "
+            "/testeaaaa2/ "
     };
 
     public static final String [] ENDPOINTS_ENGENHEIRO_DE_SETOR = {
-            " "
+            "/testeaaaa3/"
     };
 
     @Bean
@@ -53,7 +54,7 @@ public class SecurityConfiguration {
                         .requestMatchers(ENDPOINTS_ENGENHEIRO_DE_SETOR).hasRole("ENGENHEIRO_DE_SETOR")
                         .anyRequest().denyAll()
                 )
-                .addFilterBefore(this.userAuthenticationFilter, UserAuthenticationFilter.class)
+                .addFilterBefore(this.userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
