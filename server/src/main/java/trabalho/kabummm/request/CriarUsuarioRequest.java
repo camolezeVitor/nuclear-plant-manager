@@ -1,13 +1,12 @@
 package trabalho.kabummm.request;
 
 import lombok.Getter;
-import trabalho.kabummm.enums.Rules;
+import trabalho.kabummm.enums.RulesEnum;
 
 @Getter
 public class CriarUsuarioRequest {
-
     private String nome;
     private String cadastro;
     private String senha;
-    private Rules rules;
+    private RulesEnum rulesEnum;
 }

@@ -2,7 +2,7 @@ package trabalho.kabummm.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import trabalho.kabummm.enums.Rules;
+import trabalho.kabummm.enums.RulesEnum;
 
 @Getter
 @Setter
@@ -19,5 +19,5 @@ public class RoleEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Rules role;
+    private RulesEnum role;
 }
