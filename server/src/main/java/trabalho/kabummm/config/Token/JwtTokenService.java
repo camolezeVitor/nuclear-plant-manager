@@ -9,6 +9,8 @@ import trabalho.kabummm.config.Security.user.UserDetailsImpl;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtTokenService {
@@ -18,11 +20,14 @@ public class JwtTokenService {
     public String gerarToken(UserDetailsImpl userDetails) {
         try{
             Algorithm algoritmo = Algorithm.HMAC256(SECRET_KEY);
+            Map<String, String> payload = new HashMap<>();
+            payload.put("role", userDetails.getAuthorities().toString());
 
             return JWT.create()
                     .withIssuer(ISSUER)
                     .withIssuedAt(dataHoraDeCriacao())
                     .withExpiresAt(dataHoraDeExpiracao())
+                    .withPayload(payload)
                     .withSubject(userDetails.getUsername())
                     .sign(algoritmo);
 
