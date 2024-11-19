@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import trabalho.kabummm.request.CriarUsuarioRequest;
-import trabalho.kabummm.request.LogarUsuarioRequest;
+import trabalho.kabummm.request.usuario.CriarUsuarioRequest;
+import trabalho.kabummm.request.usuario.LogarUsuarioRequest;
 import trabalho.kabummm.service.UserService;
 
 @RestController
@@ -20,8 +20,7 @@ public class UserController {
 
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody LogarUsuarioRequest loginRequest) {
-        String token = this.userService.logarUsuario(loginRequest);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return this.userService.logarUsuario(loginRequest);
     }
 
     @PostMapping(path = "/cadastrar")

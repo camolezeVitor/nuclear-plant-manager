@@ -1,4 +1,4 @@
-package trabalho.kabummm.request;
+package trabalho.kabummm.request.usuario;
 
 import lombok.Getter;
 

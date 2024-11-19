@@ -2,6 +2,7 @@ package trabalho.kabummm.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,10 +13,9 @@ import trabalho.kabummm.config.Token.JwtTokenService;
 import trabalho.kabummm.entity.RoleEntity;
 import trabalho.kabummm.entity.UserEntity;
 import trabalho.kabummm.enums.RulesEnum;
-import trabalho.kabummm.repository.RoleEntityRepository;
-import trabalho.kabummm.repository.UserEntityRepository;
-import trabalho.kabummm.request.CriarUsuarioRequest;
-import trabalho.kabummm.request.LogarUsuarioRequest;
+import trabalho.kabummm.repository.*;
+import trabalho.kabummm.request.usuario.CriarUsuarioRequest;
+import trabalho.kabummm.request.usuario.LogarUsuarioRequest;
 
 import java.util.List;
 
@@ -29,14 +29,16 @@ public class UserService {
     private final SecurityConfiguration securityConfiguration;
     private final RoleEntityRepository roleEntityRepository;
 
+    private final VaretasFornecedorEntityRepository materialEntityRepository;
+
     @Transactional
-    public String logarUsuario(LogarUsuarioRequest loginRequest) {
+    public ResponseEntity<String> logarUsuario(LogarUsuarioRequest loginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getCadastro(), loginRequest.getSenha());
         Authentication authentication = this.authenticationManager
                 .authenticate(usernamePasswordAuthenticationToken);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        return this.jwtTokenService.gerarToken(userDetails);
+        return ResponseEntity.ok().body(this.jwtTokenService.gerarToken(userDetails));
     }
 
     @Transactional
