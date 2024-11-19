@@ -21,6 +21,9 @@ public class TipoSetorEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "codigo_tipo_setor")
+    private String codigoTipoSetor;
+
     @Column(name = "descricao")
     private String descricao;
 }
