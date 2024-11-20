@@ -2,24 +2,26 @@
     <label for="codigo-do-setor-a-ser-editado">Código do Setor</label>
     <p-inputgroup>
         <p-button severity="primary"
-            (click)="abrirDialogEMostrarItemSelecionado()">
+            (click)="buscarSetorETalvezAbrirDialog()">
             <i class="pi pi-eye"></i>
             Abrir edição
         </p-button>
-        <input type="text" pInputText placeholder="AA99" id="codigo-do-setor-a-ser-editado">
+        <input type="text" [(ngModel)]="codigoSetor" pInputText placeholder="AA99" id="codigo-do-setor-a-ser-editado">
     </p-inputgroup>
 </div>
 
 <p-dialog header="Editar o Setor X" [modal]="true" [(visible)]="dialogVisivel" 
 [style]="{ width: '90%' }" [contentStyle]="{display: 'flex'}">
-    <div class="w-full flex">
-        <reactor-setor-formulario
-        [funcionarios]="funcionarios"
-        [medidas]="medidas"
-        [buttonStyle]="{
-            label: 'Salvar Alterações',
-            icon: 'pi pi-save',
-            severity: 'success'
-        }"/>
-    </div>
+    @if (setorSelecionado) {
+        <div class="w-full flex">
+            <reactor-setor-formulario
+            [setorSendoEditado]="setorSelecionado"
+            (getValue)="atualizarSetor($event)"
+            [buttonStyle]="{
+                label: 'Salvar Alterações',
+                icon: 'pi pi-save',
+                severity: 'success'
+            }"/>
+        </div>
+    }
 </p-dialog>

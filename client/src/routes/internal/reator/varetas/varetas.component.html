@@ -1,8 +1,11 @@
 <!--Varetas-->
-@for (vareta of varetas; track $index) {
-    <reactor-vareta 
-        [left]="vareta.left"
-        [top]="vareta.top"/>
+@if (listaDeVaretas() != null) {
+    @for (vareta of varetas; track $index) {
+        <reactor-vareta
+            [vareta]="listaDeVaretas()![$index]"
+            [left]="vareta.left"
+            [top]="vareta.top"/>
+    }
 }
 <!--Varetas-->
 
@@ -63,7 +66,7 @@
         <p-panel header="Altura das Barras de Controle">
             <section class="flex flex-row">
                 <div class="flex flex-col items-center w-1/2">
-                    <p>Varetas de Controle Rápidas</p>
+                    <p>Varetas de Controle Parcial</p>
                     <p-knob valueTemplate="{value}%" />
                 </div>
                 <div class="flex flex-col items-center w-1/2">

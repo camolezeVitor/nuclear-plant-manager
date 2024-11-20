@@ -1,99 +1,135 @@
+<p-dialog 
+  styleClass="w-2/3 h-2/3" 
+  [modal]="true" 
+  [draggable]="false" 
+  title="Adicionar Dependência"
+  [(visible)]="dialogVisivel">
+  <div class="w-full h-full flex flex-col items-center justify-center gap-2">
+
+    @if (medidas() != null) {
+      <div class="flex flex-col w-full">
+        <label for="idMedidaDem">Medida Demandada</label>
+        <p-select
+          [style]="{width: '100%'}"
+          [(ngModel)]="formularioMedida.medida"
+          id="idMedidaDem"
+          appendTo="body"
+          [options]="medidas()!"
+          optionLabel="descricao"
+          placeholder="Selecione a medida demandada"
+        ></p-select>
+      </div>
+    }
+
+    @if (materiais() != null) {
+      <div class="flex flex-col">
+        <label for="idMaterialDem">Material Demandado</label>
+        <p-select
+          id="idMaterialDem"
+          [(ngModel)]="formularioMedida.material"
+          [options]="materiais()!"
+          optionLabel="nome"
+          placeholder="Selecione o tipo de setor"
+        ></p-select>
+      </div>
+    }
+
+    <div class="flex flex-col w-full">
+      <label for="maximoFuncionarios">Quantidade Demandada</label>
+      <p-inputNumber id="maximoFuncionarios" [(ngModel)]="formularioMedida.qtd" [min]="0"></p-inputNumber>
+    </div>
+
+    <button pButton class="w-full" (click)="adicionarDependencia()" severity="success">
+      Adicionar
+    </button>
+
+  </div>
+</p-dialog>
+
+
 <form class="w-full h-full flex flex-row p-2" [formGroup]="formulario">
-    <div class="flex flex-col w-2/6 gap-2 p-2">
+    <div class="flex flex-col w-3/6 gap-2 p-2">
       <h2><strong>Informações do Setor</strong></h2>
       
       <div class="flex flex-col">
         <label for="codigoSetor">Código do Setor</label>
         <input pInputText id="codigoSetor" formControlName="codigoSetor" placeholder="Digite o código do setor" />
       </div>
-    
+
       <div class="flex flex-col">
         <label for="nome">Nome</label>
         <input pInputText id="nome" formControlName="nome" placeholder="Digite o nome do setor" />
       </div>
+
+      @if (medidas() != null) {
+        <div class="flex flex-col">
+          <label for="idMedida">Medida de Produção</label>
+          <p-select
+            id="idMedida"
+            formControlName="medida"
+            [options]="medidas()!"
+            optionLabel="descricao"
+            placeholder="Selecione a medida de produção"
+          ></p-select>
+        </div>
+      }
+
+      @if (materiais() != null) {
+        <div class="flex flex-col">
+          <label for="idMaterial">Material Fornecido</label>
+          <p-select
+            id="idMaterial"
+            formControlName="material"
+            [options]="materiais()!"
+            optionLabel="nome"
+            placeholder="Selecione o tipo de setor"
+          ></p-select>
+        </div>
+      }
+
+      @if (tiposSetor() != null) {
+        <div class="flex flex-col">
+          <label for="idTipoSetor">Tipo de Setor</label>
+          <p-select
+            id="idTipoSetor"
+            formControlName="tipoSetor"
+            [options]="tiposSetor()!"
+            optionLabel="descricao"
+            placeholder="Selecione o tipo de setor"
+          ></p-select>
+        </div>
+      }
     
       <div class="flex flex-col">
-        <label for="qtdItmProdMax">Qtd. Máx. de Produtos</label>
-        <p-inputNumber id="qtdItmProdMax" formControlName="qtdItmProdMax" [min]="0"></p-inputNumber>
+        <label for="quantidadeItensProduzidos">Qtd. Máx. de Produtos</label>
+        <p-inputNumber id="quantidadeItensProduzidos" formControlName="quantidadeItensProduzidos" [min]="0"></p-inputNumber>
       </div>
     
       <div class="flex flex-col">
-        <label for="maxFuncionarios">Máx. de Funcionários</label>
-        <p-inputNumber id="maxFuncionarios" formControlName="maxFuncionarios" [min]="0"></p-inputNumber>
-      </div>
-    
-      <div class="flex flex-col">
-        <label for="medidaDeProd">Medida de Produção</label>
-        <input pInputText id="medidaDeProd" formControlName="medidaDeProd" placeholder="Digite a medida de produção" />
-      </div>
-    
-      <div class="flex flex-col">
-        <label for="tipoSetorId">Tipo de Setor</label>
-        <p-select
-          id="tipoSetorId"
-          formControlName="tipoSetorId"
-          [options]="tiposSetor"
-          optionLabel="label"
-          placeholder="Selecione o tipo de setor"
-        ></p-select>
+        <label for="maximoFuncionarios">Máx. de Funcionários</label>
+        <p-inputNumber id="maximoFuncionarios" formControlName="maximoFuncionarios" [min]="0"></p-inputNumber>
       </div>
   
       <button pButton class="float-right mt-2" [severity]="buttonStyle()!.severity"
-        [disabled]="formulario.invalid"> 
+        [disabled]="formulario.invalid" (click)="emitirFormulario()"> 
         <i [class]="buttonStyle()!.icon"></i>
         {{ buttonStyle()!.label }}
       </button>
     
     </div>
     
-    <div class="flex flex-col w-2/6 p-2 gap-2">
+    <div class="w-2/6 h-full flex flex-col overflow-y-auto">
       <h2><strong>Dependências do Setor</strong></h2>
-      <div class="overflow-y-auto">
-        <p-table responsiveLayout="scroll" [value]="medidas()">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>#</th>
-              <th>Unidade</th>
-              <th>Qtd</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-unidade>
-            <tr>
-              <td>
-                <p-checkbox />
-              </td>
-              <td>{{ unidade.valor }}</td>
-              <td>
-                <input pInputText />
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
-  
-    <div class="flex flex-col w-2/6 p-2 gap-2">
-      <h2><strong>Funcionários do Setor</strong></h2>
-      <div class="overflow-y-auto">
-        <p-table responsiveLayout="scroll" [value]="funcionarios()">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>#</th>
-              <th>Funcionario</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-funcionario>
-            <tr>
-              <td>
-                <p-checkbox />
-              </td>
-              <td>
-                <strong>{{ funcionario.nome }}</strong>
-                <p>{{ funcionario.cargo }}</p>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
+      @for (dep of dependencias; track $index) {
+        <div class="flex flex-row justify-between items-center">
+          <p>
+            {{dep.material?.nome}}
+            {{dep.medida?.descricao}}
+          </p>
+          <p-divider layout="vertical"/>
+          <p>{{dep.qtd}}</p>
+        </div>
+      }
+      <button (click)="abrirDialog()" pButton severity="primary" class="w-full"> Adicionar </button>
     </div>
 </form>

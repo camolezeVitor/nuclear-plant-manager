@@ -1,28 +1,29 @@
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Setor } from "../../../../shared/models/setor";
 
-export const ADICIONAR_SETOR_FORM = () => (
+export const ADICIONAR_SETOR_FORM = (setor?: Setor) => (
     new FormGroup({
-        codigoSetor: new FormControl('', [
+        codigoSetor: new FormControl(setor?.codigoSetor || '', [
           Validators.required,
           Validators.pattern('^[A-Z]{2}\\d{2}$')
         ]),
-        nome: new FormControl('', [
+        nome: new FormControl(setor?.nome || '', [
           Validators.required,
           Validators.maxLength(100)
         ]),
-        qtdItmProdMax: new FormControl('', [
+        quantidadeItensProduzidos: new FormControl(setor?.quantidadeItensProduzidos || '', [
           Validators.required,
           Validators.min(1)
         ]),
-        maxFuncionarios: new FormControl('', [
+        maximoFuncionarios: new FormControl(setor?.maximoFuncionarios || '', [
           Validators.required,
           Validators.min(1)
         ]),
-        medidaDeProd: new FormControl('', [
+        medida: new FormControl(setor?.medida || null, [
           Validators.required,
           Validators.maxLength(50)
         ]),
-        desativado: new FormControl(false),
-        tipoSetorId: new FormControl('', Validators.required)
+        tipoSetor: new FormControl(setor?.tipoSetor || null, Validators.required),
+        material: new FormControl(setor?.material || null, Validators.required),
     })
 )

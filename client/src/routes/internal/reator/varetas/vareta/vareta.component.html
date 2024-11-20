@@ -6,20 +6,44 @@
             reator desligado (por motivos obvios duh!)
         </small>
         <p-divider />
-        <button class="w-full" pButton severity="secondary" [text]="true">
+        <button class="w-full" 
+            (click)="alterarTipoDeVareta('VARETA_DE_COMBUSTIVEL')" pButton severity="secondary" [text]="true">
             Combustível
         </button>
-        <button class="w-full" pButton severity="secondary" [text]="true">
+        <button class="w-full"
+            (click)="alterarTipoDeVareta('VARETA_DE_MEDIACAO')" pButton severity="secondary" [text]="true">
             Mediador
         </button>
-        <button class="w-full" pButton severity="secondary" [text]="true">
+        <button class="w-full" #targetBar pButton severity="secondary" (click)="popControle.toggle($event, targetBar)" [text]="true">
             Barra/Controle
+        </button>
+    </section>
+</p-popover>
+
+<p-popover #popControle>
+    <section class="w-52">
+        <p>Qual tipo de vareta de controle?</p>
+        <small>
+            Aviso, é recomendado executar essa ação com o
+            reator desligado (por motivos obvios duh!)
+        </small>
+        <p-divider />
+        <button class="w-full" (click)="alterarTipoDeVareta('VARETA_DE_CONTROLE', 'VARETA_PARCIAL')" pButton severity="secondary" [text]="true">
+            Parcial
+        </button>
+        <button class="w-full" (click)="alterarTipoDeVareta('VARETA_DE_CONTROLE', 'VARETA_ABSOLUTA')" pButton severity="secondary" [text]="true">
+            Absolutas
         </button>
     </section>
 </p-popover>
 
 @if (top && left) {
     <div class="square"
+    [ngClass]="{
+        'VARETA_DE_CONTROLE': vareta()?.tipoDaVareta == 'VARETA_DE_CONTROLE',
+        'VARETA_DE_MEDIACAO': vareta()?.tipoDaVareta == 'VARETA_DE_MEDIACAO',
+        'VARETA_DE_COMBUSTIVEL': vareta()?.tipoDaVareta == 'VARETA_DE_COMBUSTIVEL',
+    }"
     (click)="popOver.toggle($event)"
     [style]="{
         cursor: 'pointer',
@@ -29,6 +53,13 @@
         left: left+'px'
     }"
     >
-        <strong>C</strong>
+        <strong>
+            {{
+                (vareta()?.tipoDaVareta === 'VARETA_DE_CONTROLE') 
+                  ? (vareta()?.tipoSecundario === 'VARETA_ABSOLUTA' ? 'A' : 'P')
+                  : (vareta()?.tipoDaVareta === 'VARETA_DE_MEDIACAO' ? 'M' : 
+                     (vareta()?.tipoDaVareta === 'VARETA_DE_COMBUSTIVEL' ? 'C' : ''))
+            }}
+        </strong>
     </div>
 }

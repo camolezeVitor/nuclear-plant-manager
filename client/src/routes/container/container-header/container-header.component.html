@@ -1,24 +1,51 @@
 <p-toolbar>
 
-    <section>
-        <p-inputgroup class="md:!w-80">
+    <section class="w-5/12">
+        <p-inputgroup class="w-full">
             <p-inputgroup-addon>
-                <i class="pi pi-arrow-down"></i>
+                @if (statusUsina()?.statusEnergiaProd == 'SUBINDO') {
+                    <i class="pi pi-arrow-up text-green-500"></i>
+                } @else {
+                    <i class="pi pi-arrow-down text-red-500"></i>
+                }
             </p-inputgroup-addon>
-            <input pInputText value="1.000.000 KWH" readonly />
+            <input pInputText [value]="statusUsina()?.energiaProduzida ?? '????'" readonly />
             <p-inputgroup-addon>
                 <div class="flex flex-row gap-1 items-center">
                     <i class="pi pi-clock"></i>
-                    20:00
+                    {{statusUsina()?.horario ?? '??'}}:00
+                </div>
+            </p-inputgroup-addon>
+            <p-inputgroup-addon>
+                <div class="flex flex-row gap-1 items-center">
+                    ${{statusUsina()?.dinheiroUsina ?? '??'}}
+                </div>
+            </p-inputgroup-addon>
+            <p-inputgroup-addon>
+                <div class="flex flex-row gap-1 items-center">
+                    <i class="pi pi-gauge"></i>
+                    {{statusUsina()?.temperaturaReator ?? '??'}}
+                </div>
+            </p-inputgroup-addon>
+            <p-inputgroup-addon>
+                <div class="flex flex-row gap-1 items-center">
+                    <i class="pi pi-calendar"></i>
+                    {{statusUsina()?.dia ?? '??'}}
                 </div>
             </p-inputgroup-addon>
         </p-inputgroup>
     </section>
 
-    <section class="w-4/6">
+    <section class="w-6/12">
         <p-iconfield iconPosition="left" class="w-full">
             <p-inputicon styleClass="pi pi-exclamation-triangle" />
-            <input type="text" pInputText class="w-full" placeholder="Search" />
+            <input 
+                type="text" 
+                pInputText
+                [value]="statusUsina()?.console ?? 'Nenhum aviso por enquanto...'" 
+                class="w-full" 
+                readonly 
+                placeholder="Search" />
         </p-iconfield>
     </section>
 

@@ -1,7 +1,8 @@
-import { Component, Type } from "@angular/core";
+import { Component, input, Type } from "@angular/core";
 import { MenuModule } from 'primeng/menu';
 import { CONTAINER_SIDEBAR_ELEMENTS } from "./container-sidebar-elements";
 import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UsinaStatus } from "../../../shared/models/usina-status";
 
 @Component({
     selector: "reactor-container-sidebar",
@@ -12,7 +13,7 @@ import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dy
     standalone: true,
 })
 export class ContainerSidebarComponent {
-    public opcoesSidebar = CONTAINER_SIDEBAR_ELEMENTS(this.abrirDialog.bind(this));
+    public opcoesSidebar = CONTAINER_SIDEBAR_ELEMENTS(this.abrirDialog.bind(this))
 
     ref: DynamicDialogRef | undefined;
     

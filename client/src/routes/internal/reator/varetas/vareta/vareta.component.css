@@ -2,9 +2,20 @@
     position: absolute;
     width: 30px; /* Tamanho padrão do quadrado */
     height: 30px;
-    background-color: #5dfd00;
     border: 1px solid #94a3b8;
     transition: 0.3s;
+}
+
+.VARETA_DE_CONTROLE {
+    background-color: rgb(113, 113, 255);
+}
+
+.VARETA_DE_MEDIACAO {
+    background-color: rgb(133, 133, 133);
+}
+
+.VARETA_DE_COMBUSTIVEL {
+    background-color: greenyellow;
 }
 
 .square:hover {

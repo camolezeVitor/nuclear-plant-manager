@@ -1,7 +1,8 @@
-<button pRipple pButton severity="success"
+<button pRipple pButton severity="secondary"
+  [text]="true"
   (click)="abrirDialog()">
   <i class="pi pi-plus"></i>
-  Adicionar Funcionário
+  Editar
 </button>
 
 
@@ -11,7 +12,7 @@
   [draggable]="false"
   [(visible)]="visible">
     <div class="p-2 ">
-        <h2 class="text-xl font-bold mb-4">Cadastrar Funcionário</h2>
+        <h2 class="text-xl font-bold mb-4">Atualizar Funcionário</h2>
         <form class="space-y-4" [formGroup]="formulario">
           <!-- Nome -->
           <div>
@@ -86,7 +87,7 @@
                 severity="success"
                 (click)="salvar()"
             >
-              Cadastrar
+              Alterar
             </button>
           </div>
         </form>

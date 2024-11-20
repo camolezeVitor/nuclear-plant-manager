@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, input } from "@angular/core";
 
 
 import { ButtonModule } from "primeng/button";
@@ -9,6 +9,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { UsinaStatus } from "../../../shared/models/usina-status";
 
 @Component({
     selector: "reactor-container-header",
@@ -26,4 +27,6 @@ import { IftaLabelModule } from 'primeng/iftalabel';
         IftaLabelModule
     ]
 })
-export class ContainerHeaderComponent {}
+export class ContainerHeaderComponent {
+    public statusUsina = input<UsinaStatus | null>(null);
+}

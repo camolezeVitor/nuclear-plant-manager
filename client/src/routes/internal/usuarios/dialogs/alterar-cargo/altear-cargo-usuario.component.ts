@@ -6,12 +6,14 @@ import { UsuarioService } from "../../../../../shared/services/usuarios.service"
 import { HttpErrorResponse } from "@angular/common/http";
 import { MessageService } from "primeng/api";
 import { Usuario } from "../../../../../shared/models/usuario";
+import { FormsModule } from "@angular/forms";
+import { UserType } from "../../../../../shared/enums/user-type-enum";
 
 @Component({
     selector: "reactor-alterar-cargo-do-usuario",
     templateUrl: "altear-cargo-usuario.component.html",
     styleUrl: "altear-cargo-usuario.component.css",
-    imports: [InputTextModule, ButtonModule, SelectModule],
+    imports: [InputTextModule, ButtonModule, SelectModule, FormsModule],
     providers: [UsuarioService],
     standalone: true
 })
@@ -26,10 +28,12 @@ export class AlterarCargoDoUsuarioDialog {
     public codigoDoUsuarioSelecionado: string = "";
     private messageService = inject(MessageService);
     public usuarioSelecionado: Usuario | null = null;
+    public cargoSelecionado: UserType | null = null;
 
     ngOnInit(): void {
         this.usuarioSelecionado = null;
         this.codigoDoUsuarioSelecionado = "";
+        this.cargoSelecionado = null;
     }
 
     buscarUmUsuario() {
@@ -47,23 +51,23 @@ export class AlterarCargoDoUsuarioDialog {
         })
     }
 
-    deletarUmUsuario() {
+    aumentarPrioridadeDeUmDeterminadoUsuario() {
         if (this.usuarioSelecionado) {
-
-            this.usuarioService.excluirUmUsuarioPorCadastro(this.usuarioSelecionado.cadastro).subscribe({
+            this.usuarioService.aumentarCargoDeDeterminadoUsuario(this.usuarioSelecionado?.cadastro, this.cargoSelecionado!).subscribe({
                 next: () => {
                     this.messageService.add({
-                        severity: 'error', 
-                        summary: "Usuário deletado com Sucesso!", 
-                        detail: "oba :)"
+                        severity: 'success', 
+                        summary: "Cargo do usuário aumentado!", 
+                        detail: "O Cargo do usuário foi aumentado com sucesso!"
                     });
+                    this.usuarioService.listarUsuarios();
                 },
                 error: () => {
                     this.messageService.add({
-                        severity: 'error', 
-                        summary: "Erro ao deletar usuário", 
-                        detail: "Ocorreu um erro ao deletar o usuário"
-                    });
+                        severity: 'errorr', 
+                        summary: "Erro ao aumentar cargo do usuário!", 
+                        detail: "O Cargo do usuário não foi aumentado por um motivo desconhecido!"
+                    })
                 }
             })
         }

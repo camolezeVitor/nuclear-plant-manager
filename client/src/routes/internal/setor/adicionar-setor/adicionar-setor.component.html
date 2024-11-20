@@ -1,7 +1,5 @@
 <reactor-setor-formulario
-  [funcionarios]="funcionarios"
-  [medidas]="unidadesDeMedida"
-  (getValue)="salvarSetor()"
+  (getValue)="salvarSetor($event)"
   [buttonStyle]="{
     label: 'Adicionar Setor',
     icon: 'pi pi-plus',

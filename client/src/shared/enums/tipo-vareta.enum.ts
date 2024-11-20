@@ -1,0 +1,2 @@
+export type TipoVareta = "VARETA_DE_CONTROLE" | "VARETA_DE_MEDIACAO" | "VARETA_DE_COMBUSTIVEL"
+export type TipoVaretaControle = "VARETA_ABSOLUTA" | "VARETA_PARCIAL"

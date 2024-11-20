@@ -1,63 +1,54 @@
 <div class="p-2">
-  <p-table [value]="setores" [responsiveLayout]="'scroll'" class="custom-table">
-    <ng-template pTemplate="header">
-      <tr>
-        <th class="w-11">Código</th>
-        <th>Setor</th>
-        <th>Produção</th>
-        <th>Informações</th>
-        <th>Status e Risco</th>
-        <th class="w-24">Ações</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-setor>
-      <tr [ngClass]="{ 'inativo': !setor.ativo }">
-        <td>
-            <strong>{{ setor.codigo }}</strong>
-        </td>
-
-        <!-- Coluna: Nome do Setor -->
-        <td>
-          <strong>{{ setor.nome }}</strong>
-        </td>
+  @if (setores() != null) {
+    <p-table [value]="setores()!" [responsiveLayout]="'scroll'" class="custom-table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="w-11">Código</th>
+          <th>Setor</th>
+          <th>Produção</th>
+          <th>Informações</th>
+          <th class="w-24">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-setor>
+        <tr [ngClass]="{ 'inativo': !setor.ativo }">
+          <td>
+              <strong>{{ setor.codigoSetor }}</strong>
+          </td>
   
-        <!-- Coluna: Produção -->
-        <td>
-          <div class="info-producao">
-            <p>{{ setor.detalhes.producao }}</p>
-          </div>
-        </td>
-  
-        <!-- Coluna: Informações -->
-        <td>
-          <div class="info-detalhes">
-            <p>Funcionários: {{ setor.detalhes.funcionarios.presentes }} / {{ setor.detalhes.funcionarios.maximo }}</p>
-            <p>Temperatura: {{ setor.detalhes.temperatura }}</p>
-          </div>
-        </td>
-  
-        <!-- Coluna: Status e Risco -->
-        <td>
-          <div class="status-risco">
-            <span [ngClass]="getStatusClass(setor.status)">
-              {{ setor.status }}
-            </span>
-            <br />
-            <span [ngClass]="getRiscoClass(setor.risco)">
-              Risco: {{ setor.risco }}
-            </span>
-          </div>
-        </td>
-  
-        <td>
-          <div class="flex flex-col">
-            <button pButton pRipple [text]="true" severity="info" class="w-full">
-                <i class="pi pi-eye"></i>
-                Visualizar
-            </button>
-          </div>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+          <!-- Coluna: Nome do Setor -->
+          <td>
+            <strong>{{ setor.nome }}</strong>
+          </td>
+    
+          <!-- Coluna: Produção -->
+          <td>
+            <div class="info-producao">
+              <p> {{ setor.material.nome }}  / {{ setor.medida.descricao }} / {{ setor.quantidadeItensProduzidos }}</p>
+            </div>
+          </td>
+    
+          <!-- Coluna: Informações -->
+          <td>
+            <div class="info-detalhes">
+              <p>Funcionários: {{ setor.maximoFuncionarios }} / </p>
+            </div>
+          </td>
+    
+          <td>
+            <div class="flex flex-col">
+              <button pButton
+                pRipple 
+                (click)="deletarSetor(setor)"
+                [text]="true" 
+                severity="danger" class="w-full">
+                  <i class="pi pi-trash"></i>
+                  Deletar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
 </div>

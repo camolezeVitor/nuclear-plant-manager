@@ -3,6 +3,7 @@ import { Usuario } from "../models/usuario";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ENVIRONMENT } from "../../configs/environment";
 import { MessageService } from "primeng/api";
+import { UserType } from "../enums/user-type-enum";
 
 @Injectable()
 export class UsuarioService {
@@ -21,6 +22,10 @@ export class UsuarioService {
 
     excluirUmUsuarioPorCadastro(cadastro: string) {
         return this.httpClient.delete(`${this.environment.backendUrl}/users/deletar/${cadastro}`);
+    }
+
+    aumentarCargoDeDeterminadoUsuario(cadastro: string, cargo: UserType) {
+        return this.httpClient.put<void>(`${this.environment.backendUrl}/users/atualizar-cargo/${cadastro}/${cargo}`, null);
     }
 
     listarUsuarios() {

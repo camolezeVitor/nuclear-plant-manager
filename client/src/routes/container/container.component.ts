@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, inject } from "@angular/core";
+import { AfterViewInit, Component, inject, OnInit, signal } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ContainerHeaderComponent } from "./container-header/container-header.component";
 import { ContainerSidebarComponent } from "./container-sidebar/container-sidebar.component";
 import { LoginService } from "../../shared/security/logged.service";
+import { ReatorAndUsinaService } from "../../shared/services/reator.service";
+import { UsinaStatus } from "../../shared/models/usina-status";
 
 @Component({
     selector: "reactor-container",
@@ -15,4 +17,12 @@ import { LoginService } from "../../shared/security/logged.service";
     ],
     standalone: true
 })
-export class ContainerRoute {}
+export class ContainerRoute implements OnInit {
+    public reatorAndUsinaService = inject(ReatorAndUsinaService);
+    public usinaStatus = signal<UsinaStatus | null>(null); 
+
+    ngOnInit(): void {
+        this.reatorAndUsinaService.initializeWebSocket();
+        this.usinaStatus = this.reatorAndUsinaService.usinaStatus;
+    }
+}
