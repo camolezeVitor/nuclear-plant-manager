@@ -51,5 +51,24 @@ export const internalRoutes: Array<Route> = [
         path: "usuarios-listar",
         loadComponent: () => import("./usuarios/listar/listar-usuarios.component")
             .then(comp => comp.ListarUsuariosRoute)
+    },
+    
+    //ROTAS FUNCIONÁRIOS
+    {
+        path: "funcionarios-gerenciar",
+        loadComponent: () => import("./funcionarios/funcionarios-gerenciar/gerenciar-funcionarios.component")
+            .then(comp => comp.GerenciarFuncionariosRoutes)
+    },
+
+    //FORNECEDORES
+    {
+        path: "fornecedores-listar",
+        loadComponent: () => import("./fornecedores/listar-fornecedores/listar-fornecedores.component")
+            .then(comp => comp.ListarFornecedoresRoute)
+    },
+    {
+        path: "fornecedores-adicionar",
+        loadComponent: () => import("./fornecedores/adicionar-fornecedor/adicionar-fornecedor.component")
+            .then(comp => comp.AdicionarFornecedorRoute)
     }
 ]

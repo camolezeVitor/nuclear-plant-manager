@@ -1,18 +1,20 @@
 <div class="p-2">
-    <p-table [value]="usuarios" class="w-full custom-table">
-        <ng-template pTemplate="header">
-            <tr>
-                <th class="text-left p-2">Nome do Usuário</th>
-                <th class="text-left p-2">Código do Usuário</th>
-                <th class="text-left p-2">Cargo do Usuário</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-user>
-            <tr>
-                <td class="p-2">{{ user.nome }}</td>
-                <td class="p-2">{{ user.codigo }}</td>
-                <td class="p-2">{{ user.cargo }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    @if (usuarios()) {
+        <p-table [value]="usuarios()!" class="w-full custom-table">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-left p-2">Nome</th>
+                    <th class="text-left p-2">Cadastro</th>
+                    <th class="text-left p-2">Cargo</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td class="p-2">{{ user.nomeDoUsuario }}</td>
+                    <td class="p-2">{{ user.cadastro }}</td>
+                    <td class="p-2">{{ user.role }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    }
 </div>

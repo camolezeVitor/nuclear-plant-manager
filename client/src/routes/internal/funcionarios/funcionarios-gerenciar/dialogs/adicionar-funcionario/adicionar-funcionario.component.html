@@ -1,0 +1,101 @@
+<p-dialog title="Adicionar um novo Funcionário" 
+  [modal]="true" 
+  [style]="{width: '50vw'}"
+  [draggable]="false"
+  [(visible)]="visible">
+    <div class="p-2 ">
+        <h2 class="text-xl font-bold mb-4">Cadastrar Funcionário</h2>
+        <form class="space-y-4">
+          <!-- Nome -->
+          <div>
+            <label for="nome" class="block text-sm font-medium mb-1">Nome</label>
+            <input
+              id="nome"
+              name="nome"
+              type="text"
+              pInputText
+              class="w-full"
+              placeholder="Digite o nome do funcionário"
+            />
+          </div>
+      
+          <!-- Salário -->
+          <div>
+            <label for="salario" class="block text-sm font-medium mb-1">Salário</label>
+            <input
+              id="salario"
+              name="salario"
+              type="number"
+              pInputText
+              class="w-full"
+              placeholder="Digite o salário"
+            />
+          </div>
+      
+          <!-- Cargo -->
+          <div>
+            <label for="cargo" class="block text-sm font-medium mb-1">Cargo</label>
+            <input
+              id="cargo"
+              name="cargo"
+              type="text"
+              pInputText
+              class="w-full"
+              placeholder="Digite o cargo"
+            />
+          </div>
+      
+          <!-- Período -->
+          <div>
+            <label for="periodo" class="block text-sm font-medium mb-1">Período</label>
+            <div class="flex flex-row items-center gap-2">
+              <input
+                id="periodo-inicio"
+                name="periodo-inicio"
+                pInputText
+                class="w-full"
+                placeholder="Horário Inicial"
+              />
+              <i class="pi pi-arrow-right"></i>
+              <input
+                id="periodo-final"
+                name="periodo-final"
+                pInputText
+                class="w-full"
+                placeholder="Horário Final"
+              />
+            </div>
+          </div>
+      
+          <!-- Setor -->
+          <div>
+            <label for="setor" class="block text-sm font-medium mb-1">Setor</label>
+            <p-select
+              [options]="setores"
+              name="setor"
+              appendTo="body"
+              id="setor"
+              [placeholder]="'Selecione o setor'"
+              class="w-full"
+            ></p-select>
+          </div>
+      
+          <!-- Botões -->
+          <div class="flex justify-between">
+            <button
+                pButton
+                severity="success"
+            >
+              Cadastrar
+            </button>
+            <button
+                pButton
+                severity="secondary"
+                (click)="onReset()"
+            >
+              Limpar
+            </button>
+          </div>
+        </form>
+    </div>
+</p-dialog>

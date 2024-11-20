@@ -79,15 +79,13 @@ export const CONTAINER_SIDEBAR_ELEMENTS = (
         items: [
             {
                 label: "Listar",
-                icon: "pi pi-list"
-            },
-            {
-                label: "Remover",
-                icon: "pi pi-user-minus"
+                icon: "pi pi-list",
+                routerLink: "fornecedores-listar"
             },
             {
                 label: "Adicionar",
                 icon: "pi pi-user-plus",
+                routerLink: "fornecedores-adicionar"
             },
         ]
     },
@@ -96,7 +94,8 @@ export const CONTAINER_SIDEBAR_ELEMENTS = (
         items: [
             {
                 label: "Gerenciar",
-                icon: "pi pi-list"
+                icon: "pi pi-list",
+                routerLink: "funcionarios-gerenciar"
             }
         ]
     },

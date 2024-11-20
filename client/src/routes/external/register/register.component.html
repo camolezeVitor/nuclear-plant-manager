@@ -5,12 +5,13 @@
         <p>Realize o cadastro para prosseguir com o software</p>
     </div>
 
-    <form class="w-full pl-14 pr-14 gap-5 flex flex-col items-center max-h-96 h-80 overflow-y-auto">
+    <form [formGroup]="formulario" class="w-full pl-14 pr-14 gap-5 flex flex-col items-center max-h-96 h-80 overflow-y-auto">
 
         <div class="w-full flex flex-row justify-between gap-4">
             <div class="flex flex-col gap-0.5 w-2/5">
                 <label for="codigo-de-registro">Código de Registro</label>
                 <input 
+                    formControlName="cadastro"
                     pInputText 
                     type="text"
                     id="codigo-de-registro" 
@@ -23,6 +24,7 @@
             <div class="flex flex-col gap-0.5 w-3/5">
                 <label for="nome-usuario">Nome do usuário</label>
                 <input 
+                    formControlName="nome"
                     pInputText 
                     type="text"
                     id="nome-usuario" 
@@ -37,6 +39,8 @@
             <label for="nome-usuario">Cargo</label>
             <p-select [options]="cargos" 
                 optionLabel="nome" 
+                formControlName="rulesEnum"
+                optionValue="codigo"
                 styleClass="w-full"
                 [style]="{width: '100%'}"
                 placeholder="Selecione seu cargo" 
@@ -49,6 +53,7 @@
         <div class="flex flex-col gap-0.5 w-full">
             <label for="senha-do-usuario">Senha</label>
             <p-password
+                formControlName="senha"
                 promptLabel="Escolha uma senha forte"
                 appendTo="body"
                 weakLabel="Fraca"
@@ -95,7 +100,7 @@
                 <i class="pi pi-chevron-right"></i>
             </div>
 
-            <p-button severity="primary" [disabled]="!usuarioAceitouOsTermos">
+        <p-button (click)="enviarFormularioDeRegistroEIrParaATelaDeLogin()" severity="primary" [disabled]="!usuarioAceitouOsTermos">
             <strong> Cadastrar-se </strong>
         </p-button>
     </div>

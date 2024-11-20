@@ -1,0 +1,76 @@
+<reactor-adicionar-um-funcionario-dialog #dialogAdicionarSetor />
+<p-confirmDialog 
+    [visible]="confirmDialogVisivel"
+    (onHide)="removerUsuario($event)"
+    [closable]="false"
+    acceptLabel="Sim"
+    rejectLabel="Não"
+    message="Você tem certeza que gostaria de remover esse funcionário?" 
+    header="Sérião??" />
+
+<main class="p-2 w-full h-full overflow-auto">
+    <p-accordion value="0">
+        <p-accordion-panel value="0">
+            <p-accordion-header>
+                <div>
+                    Setor De Abastecimento 
+                    <span>[ ATIVO (5A/10T) ]</span>
+                </div>
+            </p-accordion-header>
+            <p-accordion-content>
+                <div class="p-2 w-full flex flex-row gap-2">
+                    <button pRipple pButton severity="success"
+                        (click)="dialogAdicionarSetor.abrirDialog()">
+                        <i class="pi pi-plus"></i>
+                        Adicionar Funcionário
+                    </button>
+                    <p-divider layout="vertical" />
+                    <div class="flex flex-col">
+                        <strong>Qtd Maxima de Funcionários</strong>
+                        <p>10</p>
+                    </div>
+                    <p-divider layout="vertical" />
+                    <div class="flex flex-col">
+                        <strong>Qtd Atual de Funcionários</strong>
+                        <p>6</p>
+                    </div>
+                    <p-divider layout="vertical" />
+                    <div class="flex flex-col">
+                        <strong>Código Setor</strong>
+                        <p>BF34</p>
+                    </div>
+                </div>
+                <p-table [value]="funcionarios" [paginator]="true" [rows]="5" [globalFilterFields]="['nome']">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>Nome Funcionário</th>
+                        <th>Cargo</th>
+                        <th>Salário</th>
+                        <th>Período</th>
+                        <th>Setor</th>
+                        <th>Ações</th>
+                      </tr>
+                    </ng-template>
+                  
+                    <ng-template pTemplate="body" let-funcionario>
+                      <tr>
+                        <td>{{ funcionario.nome }}</td>
+                        <td>{{ funcionario.cargo }}</td>
+                        <td>{{ funcionario.salario }}</td>
+                        <td>{{ funcionario.periodo }}</td>
+                        <td>{{ funcionario.setor }}</td>
+                        <td>
+                            <div class="flex flex-col">
+                                <button pButton severity="secondary" [text]="true"> Editar </button>
+                                <button pButton severity="danger" 
+                                    (click)="confirmDialogVisivel = true" 
+                                    [text]="true"> Remover </button>
+                            </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+            </p-accordion-content>
+        </p-accordion-panel>
+    </p-accordion>    
+</main>

@@ -5,11 +5,12 @@
         <p>Realize o login para prosseguir com o software</p>
     </div>
 
-    <form class="w-full pl-10 pr-10 gap-5 flex flex-col items-center">
+    <form [formGroup]="formularioLogin" class="w-full pl-10 pr-10 gap-5 flex flex-col items-center">
 
         <div class="flex flex-col gap-0.5 w-full">
             <label for="codigo-de-registro">Código de Registro</label>
             <input 
+                formControlName="cadastro"
                 pInputText 
                 type="text"
                 id="codigo-de-registro" 
@@ -20,6 +21,7 @@
         <div class="flex flex-col gap-0.5 w-full">
             <label for="senha-do-usuario">Senha</label>
             <p-password 
+                formControlName="senha"
                 styleClass="w-full"
                 [inputStyle]="{width: '100%'}"
                 id="senha-do-usuario"
@@ -28,7 +30,7 @@
             <small id="senha-help">Informe a senha cadastrada</small>
         </div>
 
-        <p-button>
+        <p-button (click)="realizarLogin()">
             <i class="pi pi-arrow-right"></i>
             <strong>Login</strong>
         </p-button>

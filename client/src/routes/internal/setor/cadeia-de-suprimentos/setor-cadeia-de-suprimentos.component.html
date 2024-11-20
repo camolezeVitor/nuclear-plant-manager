@@ -1,36 +1,59 @@
-<p-organization-chart [value]="data" class="h-full w-full">
-    <ng-template let-node pTemplate="default">
-        <div class="flex flex-col w-64 gap-1 items-center">
-
-            <p-tag [value]="node.data.tipo" 
-                [severity]="node.data.tipo == 'FORNECEDOR' ? 'info' : 'success'" 
-                [style]="{
-                position: 'absolute',
-                left: '-10px',
-                top: '-10px'
-            }" />
-
-            <div class="font-medium text-lg">{{ node.label }}</div>
-
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-hammer"></i>
-                </p-inputgroup-addon>
-                <input pInputText readonly [value]="node.data.producao" />
-            </p-inputgroup>
-
-            @if (node.data.requisitos) {
-            <div class="w-full flex flex-row items-center gap-1">
-                <i class="pi pi-sort-down-fill"></i>
-                <div class="text-left">
-                    @for (req of node.data.requisitos; track $index) {
-                        <p class="m-0">
-                            {{ req }}
-                        </p>
-                    }
+<div class="w-full p-2 h-full overflow-auto">
+    <p-accordion value="0">
+        <p-accordion-panel value="0">
+            <p-accordion-header>
+                <div class="flex flex-row items-center">
+                    <p>Reator Nuclear</p>
+                    <p-divider layout="vertical" />
+                    <i class="pi pi-user "></i> &nbsp;
+                    12/20
+                    <p-divider layout="vertical" />
+                    <p>[DEMANDA]</p>
                 </div>
-            </div>
-            }
-        </div>
-    </ng-template>
-</p-organization-chart>
+            </p-accordion-header>
+            <p-accordion-content>
+                <div class="flex flex-row">
+                    <div class="w-1/3">
+                        <h4><strong>Produção:</strong></h4>
+                        <p>
+                            MAX: 560 TON
+                            <i class="pi pi-arrow-right"></i>
+                            ATU: 350 TON
+                        </p>
+                        <h4><strong>Material:</strong></h4>
+                        <p>Urânio</p>
+                    </div>
+                    <div class="w-1/3 flex flex-col">
+                        <h4><strong>Dependências:</strong></h4>
+                        <div class="w-full flex flex-row items-center">
+                            Urânio 235
+                            <p-divider layout="vertical" />
+                            <div class="flex w-full flex-row items-center gap-2">
+                                200TON <i class="pi pi-arrow-right"></i> 86TON
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-row items-center">
+                            Plutônio 235
+                            <p-divider layout="vertical" />
+                            <div class="flex  w-full flex-row items-center gap-2">
+                                200TON <i class="pi pi-arrow-right"></i> 86TON
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-row items-center">
+                            Xenônio 235
+                            <p-divider layout="vertical" />
+                            <div class="flex w-full flex-row items-center gap-2">
+                                200TON <i class="pi pi-arrow-right"></i> 86TON
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-1/3">
+
+                    </div>
+                </div>
+
+            </p-accordion-content>
+        </p-accordion-panel>
+    
+    </p-accordion>
+</div>

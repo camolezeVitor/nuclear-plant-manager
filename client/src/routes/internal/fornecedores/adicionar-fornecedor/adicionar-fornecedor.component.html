@@ -1,0 +1,73 @@
+<div class="flex flex-row p-2 items-center justify-center gap-2 h-full w-full">
+    <div class="flex flex-col gap-2 w-1/3">
+        <form [formGroup]="formulario" class="flex flex-col gap-2">
+            @if (medidas() != null) {
+                <div class="flex flex-col w-full">
+                    <label for="medida-fornecedor">Medida</label>
+                    <p-select 
+                        formControlName="idMedida"
+                        id="medida-fornecedor" 
+                        appendTo="body"
+                        [filter]="true"
+                        placeholder="Selecione a medida"
+                        [options]="medidas()!" 
+                        optionLabel="descricao" 
+                        optionValue="id" />
+                    <small>Informe a medida do trem que o trem te fornece é nois 👍</small>
+                </div>
+            }
+            @if (materiais() != null) {
+                <div class="flex flex-col w-full">
+                    <label for="materiais-fornecedor">Material</label>
+                    <p-select 
+                        formControlName="idMaterial"
+                        id="materiais-fornecedor" 
+                        [filter]="true"
+                        scrollHeight="250px"
+                        placeholder="Selecione o material"
+                        [options]="materiais()!" 
+                        optionLabel="nome" 
+                        optionValue="id" />
+                    <small>Informe o material do trem que o trem te fornece é nois 👍</small>
+                </div>
+            }
+            <div class="flex flex-col w-full">
+                <label for="nome-fornecedor">Nome do Fornecedor</label>
+                <input
+                    formControlName="nome"
+                    id="nome-fornecedor"
+                    class="w-full"
+                    type="text"
+                    pInputText 
+                    placeholder="Informe o Nome do fornecedor" >
+                <small>Informe o nome por extenso do fornecedor</small>
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="qtd-item-fornecedor">Quantidade de Item Fornecido</label>
+                <input 
+                    formControlName="quantidadeItensFornecedor"
+                    id="qtd-item-fornecedor"
+                    class="w-full"
+                    type="number"
+                    pInputText 
+                    placeholder="QTD Fornecida" >
+                <small>Informe a quantidade de items que será fornecida pelo Fornecedor</small>
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="preco-fornecedor">Preço Por 25 Tempos</label>
+                <input 
+                    formControlName="preco"
+                    id="preco-fornecedor"
+                    class="w-full"
+                    type="number"
+                    pInputText 
+                    placeholder="Informe o Nome do Fornecedor" >
+                <small>Informe o preço o preço que você terá que pagar (é triste mas tem q pagar irmão)</small>
+            </div>
+        </form>
+        <button pButton (click)="cadastrarUmNovoSetor()" severity="success">
+            <i class="pi pi-plus"></i>
+            Adicionar Fornecedor
+        </button>
+    </div>
+</div>
