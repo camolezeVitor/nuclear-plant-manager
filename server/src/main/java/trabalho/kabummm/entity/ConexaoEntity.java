@@ -17,6 +17,8 @@ public class ConexaoEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conexao_id_seq")
+    @SequenceGenerator(name = "conexao_id_seq", sequenceName = "conexao_id_seq", allocationSize = 1)
     private Long id;
 
     @OneToOne

@@ -1,9 +1,6 @@
 package trabalho.kabummm.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,8 @@ public class EnergiaProducaoHistoricoEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "energia_producao_historico_id_seq")
+    @SequenceGenerator(name = "energia_producao_historico_id_seq", sequenceName = "energia_producao_historico_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "quantidade")
