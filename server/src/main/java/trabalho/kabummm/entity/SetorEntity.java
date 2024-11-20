@@ -15,6 +15,8 @@ import lombok.Setter;
 public class SetorEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "setor_id_seq")
+    @SequenceGenerator(name = "setor_id_seq", sequenceName = "setor_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "codigo_setor")

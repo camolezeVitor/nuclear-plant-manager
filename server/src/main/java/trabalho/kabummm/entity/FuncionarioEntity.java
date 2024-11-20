@@ -15,6 +15,8 @@ import lombok.Setter;
 public class FuncionarioEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_id_seq")
+    @SequenceGenerator(name = "funcionario_id_seq", sequenceName = "funcionario_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome")

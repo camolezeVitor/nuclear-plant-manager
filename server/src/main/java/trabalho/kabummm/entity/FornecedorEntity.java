@@ -14,6 +14,8 @@ public class FornecedorEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fornecedor_id_seq")
+    @SequenceGenerator(name = "fornecedor_id_seq", sequenceName = "fornecedor_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nome")
