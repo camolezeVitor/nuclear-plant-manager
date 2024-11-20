@@ -2,6 +2,7 @@ package trabalho.kabummm.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import trabalho.kabummm.dto.fornecedor.FornecedorDto;
@@ -29,23 +30,46 @@ public class FornecedorService {
 
     public ResponseEntity<FornecedorDto> buscarFornecedorPorId(Long id) {
         FornecedorEntity fornecedor = this.fornecedorEntityRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Fornecedor com id"+ id +"não encontrado"));
+                .orElseThrow(()-> new RuntimeException("Fornecedor com id "+ id +" não encontrado"));
         return ResponseEntity.ok(new FornecedorDto(fornecedor));
     }
 
     @Transactional
-    public void cadastrarFornecedor(CriarFornecedorRequest criarFornecedorRequest) {
+    public ResponseEntity<HttpStatus> cadastrarFornecedor(CriarFornecedorRequest criarFornecedorRequest) {
         FornecedorEntity fornecedor = new FornecedorEntity();
         fornecedor.setNome(criarFornecedorRequest.getNome());
         fornecedor.setQuantidadeItensFornecedor(criarFornecedorRequest.getQuantidadeItensFornecedor());
         fornecedor.setPreco(criarFornecedorRequest.getPreco());
         fornecedor.setMaterial(this.materialEntityRepository
                 .findById(criarFornecedorRequest.getIdMaterial())
-                .orElseThrow(() -> new RuntimeException("Material com id"+ criarFornecedorRequest.getIdMaterial() +"não encontrado")));
+                .orElseThrow(() -> new
+                        RuntimeException("Material com id "+ criarFornecedorRequest.getIdMaterial() +" não encontrado")));
         fornecedor.setMedida(this.medidaEntityRepository
                 .findById(criarFornecedorRequest.getIdMedida())
-                .orElseThrow(() -> new RuntimeException("Medida com id"+ criarFornecedorRequest.getIdMedida() +"não encontrada")));
+                .orElseThrow(() -> new
+                        RuntimeException("Medida com id "+ criarFornecedorRequest.getIdMedida() +" não encontrada")));
+        this.fornecedorEntityRepository.save(fornecedor);
 
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
+    public ResponseEntity<HttpStatus> atualizarFornecedor(Long id, CriarFornecedorRequest criarFornecedorRequest) {
+        FornecedorEntity fornecedor = this.fornecedorEntityRepository.findById(id)
+                .orElseThrow(()-> new
+                        RuntimeException("Fornecedor com id "+ id +" não encontrado"));
+        fornecedor.setNome(criarFornecedorRequest.getNome());
+        fornecedor.setQuantidadeItensFornecedor(criarFornecedorRequest.getQuantidadeItensFornecedor());
+        fornecedor.setPreco(criarFornecedorRequest.getPreco());
+        fornecedor.setMaterial(this.materialEntityRepository
+                .findById(criarFornecedorRequest.getIdMaterial())
+                .orElseThrow(() -> new
+                        RuntimeException("Material com id "+ criarFornecedorRequest.getIdMaterial() +" não encontrado")));
+        fornecedor.setMedida(this.medidaEntityRepository
+                .findById(criarFornecedorRequest.getIdMedida())
+                .orElseThrow(() -> new
+                        RuntimeException("Medida com id "+ criarFornecedorRequest.getIdMedida() +" não encontrada")));
+        this.fornecedorEntityRepository.save(fornecedor);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

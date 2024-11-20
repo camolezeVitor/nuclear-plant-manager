@@ -28,13 +28,12 @@ public class FornecedorController {
     }
 
     @PostMapping(path = "/cadastrar")
-    public ResponseEntity<FornecedorDto> cadastrarFornecedor(@RequestBody CriarFornecedorRequest criarFornecedorRequest) {
-        return null;
+    public ResponseEntity<HttpStatus> cadastrarFornecedor(@RequestBody CriarFornecedorRequest criarFornecedorRequest) {
+        return this.fornecedorService.cadastrarFornecedor(criarFornecedorRequest);
     }
 
     @PutMapping(path = "/atualizar/{id}")
     public ResponseEntity<HttpStatus> atualizarFornecedor(@PathVariable Long id, @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
-        //this.fornecedorService.atualizarFornecedor(id, criarFornecedorRequest);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return this.fornecedorService.atualizarFornecedor(id, criarFornecedorRequest);
     }
 }
