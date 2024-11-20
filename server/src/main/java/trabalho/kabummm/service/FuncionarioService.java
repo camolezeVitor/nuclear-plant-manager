@@ -34,7 +34,7 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public ResponseEntity<FuncionarioDto> cadastrarFuncionario(FuncionarioRequest funcionarioRequest) {
+    public ResponseEntity<HttpStatus> cadastrarFuncionario(FuncionarioRequest funcionarioRequest) {
         FuncionarioEntity funcionario = new FuncionarioEntity();
         funcionario.setNome(funcionarioRequest.getNome());
         funcionario.setSalario(funcionarioRequest.getSalario());
@@ -42,15 +42,15 @@ public class FuncionarioService {
         funcionario.setPeriodoInicial(funcionarioRequest.getPeriodoInicial());
         funcionario.setPeriodoFinal(funcionarioRequest.getPeriodoFinal());
         funcionario.setSetor(this.setorEntityRepository
-                .findById(funcionarioRequest.getIdSetor())
+                .findByCodigoSetor(funcionarioRequest.getCodigoSetor())
                 .orElseThrow(()-> new RuntimeException("Setor não encontrado")));
 
-        FuncionarioEntity salvo = this.funcionarioEntityRepository.save(funcionario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new FuncionarioDto(salvo));
+        this.funcionarioEntityRepository.save(funcionario);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Transactional
-    public ResponseEntity<FuncionarioDto> atualizarFuncionario(Long id, FuncionarioRequest funcionarioRequest) {
+    public ResponseEntity<HttpStatus> atualizarFuncionario(Long id, FuncionarioRequest funcionarioRequest) {
         FuncionarioEntity funcionario = this.funcionarioEntityRepository
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("Funcionário com id "+id+" não encontrado"));
@@ -60,10 +60,10 @@ public class FuncionarioService {
         funcionario.setPeriodoInicial(funcionarioRequest.getPeriodoInicial());
         funcionario.setPeriodoFinal(funcionarioRequest.getPeriodoFinal());
         funcionario.setSetor(this.setorEntityRepository
-                .findById(funcionarioRequest.getIdSetor())
+                .findByCodigoSetor(funcionarioRequest.getCodigoSetor())
                 .orElseThrow(() -> new RuntimeException("Setor não encontrado")));
-        FuncionarioEntity atualizado = funcionarioEntityRepository.save(funcionario);
-        return ResponseEntity.ok(new FuncionarioDto(atualizado));
+        this.funcionarioEntityRepository.save(funcionario);
+        return ResponseEntity.ok().build();
     }
 
     @Transactional

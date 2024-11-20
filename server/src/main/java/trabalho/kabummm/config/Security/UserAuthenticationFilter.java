@@ -11,7 +11,6 @@ import trabalho.kabummm.config.Token.JwtTokenService;
 import trabalho.kabummm.repository.UserEntityRepository;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Component
 public class UserAuthenticationFilter extends OncePerRequestFilter {
@@ -60,16 +59,4 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 //        }
     }
 
-    private String recuperarToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.replace("Bearer ", "");
-        }
-        return null;
-    }
-
-    private boolean checarSeEndpointEPublico(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        return Arrays.asList(SecurityConfiguration.ENDPOINTS_PUBLICOS).contains(requestURI);
-    }
 }

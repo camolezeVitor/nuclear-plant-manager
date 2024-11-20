@@ -24,9 +24,6 @@ public class VaretasEntity {
     @Enumerated(EnumType.STRING)
     private TipoVaretaEnum tipoDaVareta;
 
-    @Column(name = "profundidade")
-    private Long profundidade;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_secundario")
     private TipoSecundarioVaretaEnum tipoSecundario;

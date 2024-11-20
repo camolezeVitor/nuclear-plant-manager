@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import trabalho.kabummm.entity.UserEntity;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Getter
@@ -18,10 +19,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userEntity.getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
-                .collect(Collectors.toList());
+        return Collections.singleton(new SimpleGrantedAuthority(userEntity.getRoles().getRole().name()));
     }
 
     @Override

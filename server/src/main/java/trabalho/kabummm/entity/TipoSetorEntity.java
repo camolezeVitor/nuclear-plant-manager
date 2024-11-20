@@ -24,6 +24,6 @@ public class TipoSetorEntity {
     @Column(name = "codigo_tipo_setor")
     private String codigoTipoSetor;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao_setor")
     private String descricao;
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -20,12 +22,12 @@ public class SetorEntity {
     private Long id;
 
     @Column(name = "codigo_setor")
-    private String codigo_setor;
+    private String codigoSetor;
 
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "quantidade_itens_produzidos")
+    @Column(name = "quantidade_item_produzido")
     private Long quantidadeItensProduzidos;
 
     @Column(name = "maximo_funcionarios")
@@ -38,4 +40,14 @@ public class SetorEntity {
     @ManyToOne
     @JoinColumn(name = "id_tipo_setor")
     private TipoSetorEntity tipoSetor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_material")
+    private MaterialEntity material;
+
+    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DependenciaMedidaEntity> dependencias;
+
+    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FuncionarioEntity> funcionarios;
 }

@@ -16,15 +16,21 @@ public class DependenciaMedidaEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(generator = "dependencia_medida_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "dependencia_medida_id_seq", sequenceName = "public.dependencia_medida_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_setor")
+    @JoinColumn(name = "codigo_setor", referencedColumnName = "codigo_setor")
     private SetorEntity setor;
 
     @ManyToOne
     @JoinColumn(name = "id_medida")
     private MedidaEntity medida;
+
+    @ManyToOne
+    @JoinColumn(name = "id_material")
+    private MaterialEntity material;
 
     @Column(name = "quantidade")
     private Long quantidade;

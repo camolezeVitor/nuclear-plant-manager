@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trabalho.kabummm.dto.fornecedor.FornecedorDto;
-import trabalho.kabummm.request.fornecedor.CriarFornecedorRequest;
+import trabalho.kabummm.request.fornecedor.FornecedorRequest;
 import trabalho.kabummm.service.FornecedorService;
 
 import java.util.List;
@@ -28,12 +28,17 @@ public class FornecedorController {
     }
 
     @PostMapping(path = "/cadastrar")
-    public ResponseEntity<HttpStatus> cadastrarFornecedor(@RequestBody CriarFornecedorRequest criarFornecedorRequest) {
-        return this.fornecedorService.cadastrarFornecedor(criarFornecedorRequest);
+    public ResponseEntity<HttpStatus> cadastrarFornecedor(@RequestBody FornecedorRequest fornecedorRequest) {
+        return this.fornecedorService.cadastrarFornecedor(fornecedorRequest);
     }
 
     @PutMapping(path = "/atualizar/{id}")
-    public ResponseEntity<HttpStatus> atualizarFornecedor(@PathVariable Long id, @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
-        return this.fornecedorService.atualizarFornecedor(id, criarFornecedorRequest);
+    public ResponseEntity<HttpStatus> atualizarFornecedor(@PathVariable Long id, @RequestBody FornecedorRequest fornecedorRequest) {
+        return this.fornecedorService.atualizarFornecedor(id, fornecedorRequest);
+    }
+
+    @DeleteMapping(path = "/deletar/{id}")
+    public ResponseEntity<HttpStatus> deletarFornecedor(@PathVariable Long id) {
+        return this.fornecedorService.deletarFornecedor(id);
     }
 }

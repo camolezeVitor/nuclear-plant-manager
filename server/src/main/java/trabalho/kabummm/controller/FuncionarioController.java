@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trabalho.kabummm.dto.funcionario.FuncionarioDto;
-import trabalho.kabummm.entity.FuncionarioEntity;
 import trabalho.kabummm.request.funcionario.FuncionarioRequest;
 import trabalho.kabummm.service.FuncionarioService;
 
@@ -29,12 +28,12 @@ public class FuncionarioController {
     }
 
     @PostMapping(path = "/cadastrar")
-    public ResponseEntity<FuncionarioDto> cadastrarFuncionario(@RequestBody FuncionarioRequest funcionarioRequest) {
+    public ResponseEntity<HttpStatus> cadastrarFuncionario(@RequestBody FuncionarioRequest funcionarioRequest) {
         return this.funcionarioService.cadastrarFuncionario(funcionarioRequest);
     }
 
     @PutMapping(path = "/atualizar/{id}")
-    public ResponseEntity<FuncionarioDto> atualizarFuncionario(@PathVariable Long id, @RequestBody FuncionarioRequest funcionarioRequest) {
+    public ResponseEntity<HttpStatus> atualizarFuncionario(@PathVariable Long id, @RequestBody FuncionarioRequest funcionarioRequest) {
         return this.funcionarioService.atualizarFuncionario(id, funcionarioRequest);
     }
 
@@ -43,4 +42,5 @@ public class FuncionarioController {
         this.funcionarioService.deletarFuncionario(id);
         return ResponseEntity.noContent().build();
     }
+
 }

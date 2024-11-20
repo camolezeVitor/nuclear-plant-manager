@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByCadastro(String cadastro);
+    Boolean existsByCadastro(String cadastro);
+    void deleteByCadastro(String cadastro);
 }

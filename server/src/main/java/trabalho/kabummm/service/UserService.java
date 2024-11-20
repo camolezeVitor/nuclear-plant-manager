@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import trabalho.kabummm.config.Security.SecurityConfiguration;
 import trabalho.kabummm.config.Security.user.UserDetailsImpl;
 import trabalho.kabummm.config.Token.JwtTokenService;
+import trabalho.kabummm.dto.user.UserDto;
 import trabalho.kabummm.entity.RoleEntity;
 import trabalho.kabummm.entity.UserEntity;
 import trabalho.kabummm.enums.RulesEnum;
@@ -45,19 +46,37 @@ public class UserService {
         novoUsuario.setNomeDoUsuario(criarUsuarioRequest.getNome());
         novoUsuario.setCadastro(criarUsuarioRequest.getCadastro());
         novoUsuario.setSenha(securityConfiguration.passwordEncoder().encode(criarUsuarioRequest.getSenha()));
-
-        RulesEnum role = criarUsuarioRequest.getRulesEnum();
-
-        if (role != null) {
-            RoleEntity roleEntity = this.roleEntityRepository.findByRole(role);
-
-            novoUsuario.setRoles(List.of(roleEntity));
-        } else {
-            throw new IllegalArgumentException("O papel (role) informado não é válido.");
-        }
+        novoUsuario.setRoles(this.roleEntityRepository.findByRole(criarUsuarioRequest.getRulesEnum()));
 
         this.userEntityRepository.save(novoUsuario);
     }
 
+    public ResponseEntity<List<UserDto>> buscarTodosUsuarios() {
+        List<UserEntity> users = this.userEntityRepository.findAll();
+        if (users.isEmpty()) throw new RuntimeException("Nenhum usuário encontrado");
+        return ResponseEntity.ok(UserDto.convert(users));
+    }
 
+    public ResponseEntity<UserDto> buscarUsuarioPorCadastro(String cadastro) {
+        UserEntity user = this.userEntityRepository.findByCadastro(cadastro)
+                .orElseThrow(() -> new RuntimeException("Usuário com cadastro " + cadastro + " não encontrado"));
+        return ResponseEntity.ok(new UserDto(user));
+    }
+
+    @Transactional
+    public void deletarUsuario(String cadastro) {
+        if (!this.userEntityRepository.existsByCadastro(cadastro)) {
+            throw new RuntimeException("Usuário com cadastro " + cadastro + " não encontrado");
+        }
+        this.userEntityRepository.deleteByCadastro(cadastro);
+    }
+
+    @Transactional
+    public void atualizarCargo(String cadastro, String novoCargo) {
+        UserEntity user = this.userEntityRepository.findByCadastro(cadastro)
+                .orElseThrow(() -> new RuntimeException("Usuário com cadastro " + cadastro + " não encontrado"));
+        RoleEntity role = this.roleEntityRepository.findByRole(RulesEnum.valueOf(novoCargo));
+        user.setRoles(role);
+        this.userEntityRepository.save(user);
+    }
 }

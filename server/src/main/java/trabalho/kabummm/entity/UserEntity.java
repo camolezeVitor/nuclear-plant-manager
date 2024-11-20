@@ -30,9 +30,7 @@ public class UserEntity {
     @Column(name = "senha")
     private String senha;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleEntity> roles;
+    @ManyToOne()
+    @JoinColumn(name = "id_role")
+    private RoleEntity roles;
 }
