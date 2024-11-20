@@ -21,14 +21,14 @@ public class JwtTokenService {
         try{
             Algorithm algoritmo = Algorithm.HMAC256(SECRET_KEY);
             Map<String, String> payload = new HashMap<>();
-            payload.put("role", userDetails.getAuthorities().toString());
+            payload.put("role", userDetails.getAuthorities().toString().replace("[", "").replace("]", ""));
 
             return JWT.create()
                     .withIssuer(ISSUER)
                     .withIssuedAt(dataHoraDeCriacao())
                     .withExpiresAt(dataHoraDeExpiracao())
                     .withPayload(payload)
-                    .withSubject(userDetails.getUsername())
+                    .withSubject(userDetails.getUserEntity().getCadastro())
                     .sign(algoritmo);
 
         } catch (JWTCreationException exception){

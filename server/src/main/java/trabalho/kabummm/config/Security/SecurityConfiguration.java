@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -30,17 +31,64 @@ public class SecurityConfiguration {
         "/users/cadastrar"
     };
 
-    public static final String [] ENDPOINTS_ADMINISTRADOR = {
-        "/testeaaaa/"
-    };
-
-    public static final String [] ENDPOINTS_GERENTE = {
-            "/testeaaaa2/ "
-    };
-
     public static final String [] ENDPOINTS_ENGENHEIRO_DE_SETOR = {
-            "/testeaaaa3/"
+            "/materiais/buscar-todos",
+            "/funcionarios/buscar-todos",
+            "/funcionarios/buscar-por-id/{id}",
+            "/funcionarios/cadastrar",
+            "/funcionarios/atualizar/{id}",
+            "/funcionarios/deletar/{id}",
+            "/fornecedores/buscar-todos",
+            "/fornecedores/buscar-por-id/{id}",
+            "/fornecedores/cadastrar",
+            "/fornecedores/atualizar/{id}",
+            "/fornecedores/deletar/{id}",
+            "/setores/buscar-todos",
+            "/setores/buscar-por-id/{id}",
+            "/setores/cadastrar",
+            "/setores/atualizar/{id}",
+            "/setores/deletar/{id}"
     };
+
+
+    public static final String [] ENDPOINTS_ADMINISTRADOR = {
+            "/materiais/buscar-todos",
+            "/funcionarios/buscar-todos",
+            "/funcionarios/buscar-por-id/{id}",
+            "/funcionarios/cadastrar",
+            "/funcionarios/atualizar/{id}",
+            "/funcionarios/deletar/{id}",
+            "/fornecedores/buscar-todos",
+            "/fornecedores/buscar-por-id/{id}",
+            "/fornecedores/cadastrar",
+            "/fornecedores/atualizar/{id}",
+            "/fornecedores/deletar/{id}",
+            "/setores/buscar-todos",
+            "/setores/buscar-por-id/{id}",
+            "/setores/cadastrar",
+            "/setores/atualizar/{id}",
+            "/setores/deletar/{id}"
+    };
+
+    public static final String[] ENDPOINTS_GERENTE = {
+            "/materiais/buscar-todos",
+            "/funcionarios/buscar-todos",
+            "/funcionarios/buscar-por-id/{id}",
+            "/funcionarios/cadastrar",
+            "/funcionarios/atualizar/{id}",
+            "/funcionarios/deletar/{id}",
+            "/fornecedores/buscar-todos",
+            "/fornecedores/buscar-por-id/{id}",
+            "/fornecedores/cadastrar",
+            "/fornecedores/atualizar/{id}",
+            "/fornecedores/deletar/{id}",
+            "/setores/buscar-todos",
+            "/setores/buscar-por-id/{id}",
+            "/setores/cadastrar",
+            "/setores/atualizar/{id}",
+            "/setores/deletar/{id}"
+    };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,13 +96,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(ENDPOINTS_PUBLICOS).permitAll()
-                        .requestMatchers(ENDPOINTS_ADMINISTRADOR).hasRole("ADMINISTRADOR")
-                        .requestMatchers(ENDPOINTS_GERENTE).hasRole("GERENTE")
-                        .requestMatchers(ENDPOINTS_ENGENHEIRO_DE_SETOR).hasRole("ENGENHEIRO_DE_SETOR")
-                        .anyRequest().denyAll()
+                        .anyRequest().permitAll()
                 )
-                .addFilterBefore(this.userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

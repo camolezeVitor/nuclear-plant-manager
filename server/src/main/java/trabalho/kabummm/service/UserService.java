@@ -29,8 +29,6 @@ public class UserService {
     private final SecurityConfiguration securityConfiguration;
     private final RoleEntityRepository roleEntityRepository;
 
-    private final VaretasFornecedorEntityRepository materialEntityRepository;
-
     @Transactional
     public ResponseEntity<String> logarUsuario(LogarUsuarioRequest loginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
