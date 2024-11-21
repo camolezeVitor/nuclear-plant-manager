@@ -5,13 +5,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trabalho.kabummm.dto.conexao.ConexaoDto;
+import trabalho.kabummm.dto.fornecedor.FornecedorDto;
+import trabalho.kabummm.dto.setor.SetorConexoesDto;
 import trabalho.kabummm.dto.setor.SetorDto;
 import trabalho.kabummm.dto.setor.SetorFuncionarioDto;
+import trabalho.kabummm.dto.setor.SetorInfosBasicasDto;
 import trabalho.kabummm.entity.*;
 import trabalho.kabummm.repository.*;
 import trabalho.kabummm.request.dependencia.DependenciaRequest;
 import trabalho.kabummm.request.setor.SetorRequest;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -21,8 +27,11 @@ public class SetorService {
     private final SetorEntityRepository setorRepository;
     private final MedidaEntityRepository medidaRepository;
     private final TipoSetorEntityRepository tipoSetorRepository;
+    private final ConexaoEntityRepository conexaoRepository;
     private final MaterialEntityRepository materialRepository;
+    private final FornecedorEntityRepository fornecedorRepository;
     private final DependenciaMedidaEntityRepository dependenciaMedidaEntityRepository;
+    private final UsinaService usinaService;
 
     public ResponseEntity<List<SetorDto>> buscarTodosSetores() {
         List<SetorEntity> setores = this.setorRepository.findAll();
@@ -125,4 +134,85 @@ public class SetorService {
         if (setores.isEmpty()) throw new RuntimeException("Nenhum setor encontrado");
         return ResponseEntity.ok(SetorFuncionarioDto.converter(setores));
     }
+
+    public ResponseEntity<List<SetorConexoesDto>> buscarInformacoesParaConexao() {
+        this.usinaService.calcularEnergiaGeradaPeloReator();
+
+
+        List<SetorEntity> setores = this.setorRepository.findAll();
+        setores.sort(Comparator.comparing(SetorEntity::getId));
+        if(setores.isEmpty()) throw new RuntimeException("Nenhum setor encontrado");
+        List<SetorConexoesDto> setoresConexoes = new ArrayList<>();
+
+        setores.forEach(setorSelecionado -> {
+            Long quantidadeDeFuncionarios = (long) setorSelecionado.getFuncionarios().size();
+
+            List<SetorEntity> setoresQueAtemdemAoSetorSelecionado = new ArrayList<>();
+            List<FornecedorEntity> fornecedoresQueAtemdemAoSetorSelecionado = new ArrayList<>();
+
+            setorSelecionado.getDependencias().forEach(dependencia -> {
+                List<SetorEntity> setoresQueAtendemAMedida = this.setorRepository.findAllByMaterialAndMedida(dependencia.getMaterial(), dependencia.getMedida());
+                setoresQueAtendemAMedida.forEach(setor -> {
+                    if (!setoresQueAtemdemAoSetorSelecionado.contains(setor) && !setorSelecionado.equals(setor)) {
+                        if(!this.conexaoRepository.existsByDependenteIdAndIdProvedor(setorSelecionado.getId(), setor.getId())){
+                            setoresQueAtemdemAoSetorSelecionado.add(setor);
+                        }
+                    }
+                });
+
+                List<FornecedorEntity> fornecedores = this.fornecedorRepository.findAllByMaterialAndMedida(dependencia.getMaterial(), dependencia.getMedida());
+                fornecedores.forEach(fornecedor -> {
+                    if (!fornecedoresQueAtemdemAoSetorSelecionado.contains(fornecedor)) {
+                        if(!this.conexaoRepository.existsByDependenteIdAndIdProvedor(setorSelecionado.getId(), fornecedor.getId())){
+                            fornecedoresQueAtemdemAoSetorSelecionado.add(fornecedor);
+                        }
+                    }
+                });
+            });
+
+            SetorConexoesDto setorConexoes = new SetorConexoesDto();
+            setorConexoes.setInformacoesSetor(new SetorDto(setorSelecionado));
+            setorConexoes.getInformacoesSetor().setFuncionariosTrabalhando(quantidadeDeFuncionarios);
+            setorConexoes.setRealProducaoDoSetor((double) (quantidadeDeFuncionarios*setorSelecionado.getQuantidadeItensProduzidos())/setorSelecionado.getMaximoFuncionarios());
+            setorConexoes.setSetoresDisponiveisParaFornecer(SetorInfosBasicasDto.converter(setoresQueAtemdemAoSetorSelecionado));
+            setorConexoes.setFornecedoresDisponiveisParaFornecer(FornecedorDto.converter(fornecedoresQueAtemdemAoSetorSelecionado));
+
+            List<ConexaoEntity> listaDeDependentesParaOSetor =  this.conexaoRepository.findAllByDependenteId(setorSelecionado.getId());
+            setorConexoes.setSetoresQueJaSeLigam(ConexaoDto.converter(listaDeDependentesParaOSetor));
+            setorConexoes.getSetoresQueJaSeLigam().forEach(conexao -> {
+                if(conexao.getTipoConexao().equals("FORNECEDOR")){
+                    conexao.setProvedorCasoTipoConexaoSejaFornecedor(new FornecedorDto(this.fornecedorRepository.findById(conexao.getIdProvedor()).get()));
+                }else{
+                    conexao.setProvedorCasoTipoConexaoSejaSetor(new SetorInfosBasicasDto(this.setorRepository.findById(conexao.getIdProvedor()).get()));
+                }
+            });
+
+            setorConexoes.getInformacoesSetor().getDependencias().forEach(dependencia -> {
+                setorConexoes.getSetoresQueJaSeLigam().forEach(dtoConexao -> {
+                    if(dtoConexao.getProvedorCasoTipoConexaoSejaFornecedor() != null){
+                        if(dependencia.getMaterial().equals(dtoConexao.getProvedorCasoTipoConexaoSejaFornecedor().getMaterial()) ){
+                            dependencia.setQuantidadeProferidaPorProvedores(dependencia.getQuantidadeProferidaPorProvedores()
+                                    + dtoConexao.getProvedorCasoTipoConexaoSejaFornecedor().getQuantidadeItensFornecedor());
+                            if(dependencia.getQuantidadeProferidaPorProvedores() >= dependencia.getQtd()){
+                                dependencia.setDependenciaAtendida(true);
+                            }
+                        }
+                    }
+                    if(dtoConexao.getProvedorCasoTipoConexaoSejaSetor() != null){
+                        if(dependencia.getMaterial().equals(dtoConexao.getProvedorCasoTipoConexaoSejaSetor().getMaterial()) ){
+                            dependencia.setQuantidadeProferidaPorProvedores(dependencia.getQuantidadeProferidaPorProvedores()
+                                    + dtoConexao.getProvedorCasoTipoConexaoSejaSetor().getQuantidadeItensProduzidos());
+                            if(dependencia.getQuantidadeProferidaPorProvedores() >= dependencia.getQtd()){
+                                dependencia.setDependenciaAtendida(true);
+                            }
+                        }
+                    }
+                });
+            });
+            setoresConexoes.add(setorConexoes);
+        });
+
+        return ResponseEntity.ok(setoresConexoes);
+    }
+
 }

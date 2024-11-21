@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import trabalho.kabummm.dto.setor.SetorConexoesDto;
 import trabalho.kabummm.dto.setor.SetorDto;
 import trabalho.kabummm.dto.setor.SetorFuncionarioDto;
 import trabalho.kabummm.request.setor.SetorRequest;
@@ -36,6 +37,11 @@ public class SetorController {
     @GetMapping("/buscar-todos-com-funcionarios")
     public ResponseEntity<List<SetorFuncionarioDto>> buscarTodosSetoresComFuncionarios() {
         return this.setorService.buscarTodosSetoresComFuncionarios();
+    }
+
+    @GetMapping("/buscar-informacoes-para-conexao")
+    public ResponseEntity<List<SetorConexoesDto>> buscarInformacoesParaConexao() {
+        return this.setorService.buscarInformacoesParaConexao();
     }
 
     @PostMapping("/cadastrar")

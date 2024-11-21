@@ -1,5 +1,6 @@
 package trabalho.kabummm.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,18 +22,18 @@ public class ConexaoEntity {
     @SequenceGenerator(name = "conexao_id_seq", sequenceName = "conexao_id_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "id_provedor")
-    private SetorEntity provedor;
+    @Column(name = "id_provedor")
+    private Long idProvedor;
 
-    @OneToOne
+    @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_dependente")
     private SetorEntity dependente;
 
     @Column(name = "prioridade")
     private Long prioridade;
 
-    @Column(name = "tipo_conexao")
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_conexao")
     private TipoConexaoEnum tipoConexao;
 }
