@@ -12,6 +12,7 @@ import java.util.List;
 public class SetorInfosBasicasDto {
     private final Long id;
     private final String codigoSetor;
+    private final Boolean funcionando;
     private final String nome;
     private final Long quantidadeItensProduzidos;
     private final Long maximoFuncionarios;
@@ -23,6 +24,7 @@ public class SetorInfosBasicasDto {
         this.id = setorEntity.getId();
         this.codigoSetor = setorEntity.getCodigoSetor();
         this.nome = setorEntity.getNome();
+        this.funcionando = setorEntity.getFuncionando() == 1;
         this.quantidadeItensProduzidos = setorEntity.getQuantidadeItensProduzidos();
         this.maximoFuncionarios = setorEntity.getMaximoFuncionarios();
         this.medida = new MedidaDto(setorEntity.getMedida());

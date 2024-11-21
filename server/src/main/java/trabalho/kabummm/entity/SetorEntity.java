@@ -1,6 +1,5 @@
 package trabalho.kabummm.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,9 +45,12 @@ public class SetorEntity {
     @JoinColumn(name = "id_material")
     private MaterialEntity material;
 
+    @Column(name = "is_funcionando")
+    private Long funcionando;
+
     @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DependenciaMedidaEntity> dependencias;
 
-    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FuncionarioEntity> funcionarios;
 }

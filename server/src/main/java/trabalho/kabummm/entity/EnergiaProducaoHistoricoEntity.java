@@ -20,9 +20,12 @@ public class EnergiaProducaoHistoricoEntity {
     @SequenceGenerator(name = "energia_producao_historico_id_seq", sequenceName = "energia_producao_historico_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "quantidade")
-    private Long quantidade;
+    @Column(name = "data_producao")
+    private String dataProducao;
 
-    @Column(name = "horario_producao")
-    private String horarioProducao;
+    @Column(name = "temperatura")
+    private String temperatura;
+
+    @Column(name = "quantidade")
+    private String energiaGerada;
 }

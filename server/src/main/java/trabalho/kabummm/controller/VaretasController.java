@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trabalho.kabummm.dto.varetas.FornecedoresVaretasDto;
 import trabalho.kabummm.dto.varetas.VaretasDto;
+import trabalho.kabummm.dto.varetas.VaretasProfundidadeDto;
 import trabalho.kabummm.request.varetas.ProfundidadeVaretasRequest;
 import trabalho.kabummm.request.varetas.VaretasRequest;
 import trabalho.kabummm.service.VaretasService;
@@ -28,6 +29,11 @@ public class VaretasController {
     @GetMapping("/buscar-fornecedores-varetas")
     public ResponseEntity<FornecedoresVaretasDto> buscarFornecedoresVaretas(){
         return this.varetasService.buscarFornecedoresVaretas();
+    }
+
+    @GetMapping("/buscar-profundidade-vareta")
+    public ResponseEntity<VaretasProfundidadeDto> buscarProfundidadeVareta(){
+        return this.varetasService.buscarProfundidadeVareta();
     }
 
     @PutMapping("/mudar-profundidade")

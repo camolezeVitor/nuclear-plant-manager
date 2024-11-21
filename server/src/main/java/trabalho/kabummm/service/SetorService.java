@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trabalho.kabummm.config.WebSocket.WebSocketHandler;
 import trabalho.kabummm.dto.conexao.ConexaoDto;
 import trabalho.kabummm.dto.fornecedor.FornecedorDto;
 import trabalho.kabummm.dto.setor.SetorConexoesDto;
@@ -31,7 +32,6 @@ public class SetorService {
     private final MaterialEntityRepository materialRepository;
     private final FornecedorEntityRepository fornecedorRepository;
     private final DependenciaMedidaEntityRepository dependenciaMedidaEntityRepository;
-    private final UsinaService usinaService;
 
     public ResponseEntity<List<SetorDto>> buscarTodosSetores() {
         List<SetorEntity> setores = this.setorRepository.findAll();
@@ -136,9 +136,6 @@ public class SetorService {
     }
 
     public ResponseEntity<List<SetorConexoesDto>> buscarInformacoesParaConexao() {
-        this.usinaService.calcularEnergiaGeradaPeloReator();
-
-
         List<SetorEntity> setores = this.setorRepository.findAll();
         setores.sort(Comparator.comparing(SetorEntity::getId));
         if(setores.isEmpty()) throw new RuntimeException("Nenhum setor encontrado");
@@ -149,6 +146,10 @@ public class SetorService {
 
             List<SetorEntity> setoresQueAtemdemAoSetorSelecionado = new ArrayList<>();
             List<FornecedorEntity> fornecedoresQueAtemdemAoSetorSelecionado = new ArrayList<>();
+
+            if(setorSelecionado.getDependencias().isEmpty()){
+                setorSelecionado.setFuncionando(1L);
+            }
 
             setorSelecionado.getDependencias().forEach(dependencia -> {
                 List<SetorEntity> setoresQueAtendemAMedida = this.setorRepository.findAllByMaterialAndMedida(dependencia.getMaterial(), dependencia.getMedida());

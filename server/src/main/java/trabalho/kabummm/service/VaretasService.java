@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import trabalho.kabummm.dto.fornecedor.FornecedorDto;
 import trabalho.kabummm.dto.varetas.FornecedoresVaretasDto;
 import trabalho.kabummm.dto.varetas.VaretasDto;
+import trabalho.kabummm.dto.varetas.VaretasProfundidadeDto;
 import trabalho.kabummm.entity.FornecedorEntity;
 import trabalho.kabummm.entity.VaretasEntity;
 import trabalho.kabummm.entity.VaretasFornecedorEntity;
@@ -110,10 +111,6 @@ public class VaretasService {
             fornecedorAtualVaretaCombustivel = optionalFornecedorAtualVaretaCombustivel.get().getFornecedor();
         }
 
-        fornecedoresVaretasControle.remove(fornecedorAtualVaretaControle);
-        fornecedoresVaretasCombustivel.remove(fornecedorAtualVaretaCombustivel);
-        fornecedoresVaretasMediacao.remove(fornecedorAtualVaretaMediacao);
-
         FornecedoresVaretasDto fornecedoresVaretasDto = new FornecedoresVaretasDto();
 
         fornecedoresVaretasDto.setFornecedorAtualVaretasDeControle(new FornecedorDto(fornecedorAtualVaretaControle));
@@ -124,5 +121,11 @@ public class VaretasService {
         fornecedoresVaretasDto.setFornecedoresVaretasMediadores(FornecedorDto.converter(fornecedoresVaretasMediacao));
 
         return ResponseEntity.ok(fornecedoresVaretasDto);
+    }
+
+    public ResponseEntity<VaretasProfundidadeDto> buscarProfundidadeVareta() {
+        VaretasProfundidadeEntity varetasProfundidade = this.varetasProfundidadeEntityRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("Profundidade não encontrada"));
+        return ResponseEntity.ok(new VaretasProfundidadeDto(varetasProfundidade));
     }
 }

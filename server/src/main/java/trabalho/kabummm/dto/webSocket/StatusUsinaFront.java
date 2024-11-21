@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import trabalho.kabummm.enums.StatusReatorEnum;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,5 +19,5 @@ public class StatusUsinaFront {
     private String temperaturaReator;
     private String horario;
     private String dia;
-    private String console;
+    private List<String> console;
 }
