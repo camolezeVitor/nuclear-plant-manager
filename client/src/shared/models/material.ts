@@ -11,6 +11,6 @@ export class Material {
         public id: number,
         public nome: string,
         public multiplicador: number,
-        public tipo: TipoMaterial
+        public tipoMaterial: TipoMaterial
     ) {}
 }

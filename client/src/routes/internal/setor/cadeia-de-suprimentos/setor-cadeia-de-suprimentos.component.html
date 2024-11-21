@@ -1,59 +1,95 @@
+
 <div class="w-full p-2 h-full overflow-auto">
-    <p-accordion value="0">
-        <p-accordion-panel value="0">
-            <p-accordion-header>
-                <div class="flex flex-row items-center">
-                    <p>Reator Nuclear</p>
-                    <p-divider layout="vertical" />
-                    <i class="pi pi-user "></i> &nbsp;
-                    12/20
-                    <p-divider layout="vertical" />
-                    <p>[DEMANDA]</p>
-                </div>
-            </p-accordion-header>
-            <p-accordion-content>
-                <div class="flex flex-row">
-                    <div class="w-1/3">
-                        <h4><strong>Produção:</strong></h4>
-                        <p>
-                            MAX: 560 TON
-                            <i class="pi pi-arrow-right"></i>
-                            ATU: 350 TON
-                        </p>
-                        <h4><strong>Material:</strong></h4>
-                        <p>Urânio</p>
+    @for (setorConexao of setorConexoes(); track $index) {
+        <p-accordion value="0">
+            <p-accordion-panel value="{{$index}}">
+                <p-accordion-header>
+                    <div class="flex flex-row items-center">
+                        <p>{{setorConexao.informacoesSetor.nome}}</p>
+                        <p-divider layout="vertical" />
+                        <i class="pi pi-user "></i> &nbsp;
+                        {{setorConexao.informacoesSetor.funcionariosTrabalhando}}/{{setorConexao.informacoesSetor.maximoFuncionarios}}
                     </div>
-                    <div class="w-1/3 flex flex-col">
-                        <h4><strong>Dependências:</strong></h4>
-                        <div class="w-full flex flex-row items-center">
-                            Urânio 235
-                            <p-divider layout="vertical" />
-                            <div class="flex w-full flex-row items-center gap-2">
-                                200TON <i class="pi pi-arrow-right"></i> 86TON
-                            </div>
+                </p-accordion-header>
+                <p-accordion-content>
+                    <div class="w-full flex flex-row gap-3">
+                        <div class="w-1/3 flex flex-col gap-2">
+                            <p-fieldset legend="Dependências">
+                                <div class="h-24 w-full flex flex-col">
+                                    @for (dep of setorConexao.informacoesSetor.dependencias; track $index) {
+                                        <p>
+                                            @if (dep.dependenciaAtendida) {
+                                                <i class="pi pi-check"></i>
+                                            } @else {
+                                                <i class="pi pi-times"></i>
+                                            }
+                                            {{ dep.qtd }} {{ dep.medida?.descricao }}
+                                            <strong> {{ dep.material?.nome }} </strong>
+                                        </p>
+                                    }
+                                </div>
+                            </p-fieldset>
+                            <p-fieldset legend="Produção">
+                                <div class="w-full flex flex-col">
+                                    <p>
+                                        {{ setorConexao.informacoesSetor.quantidadeItensProduzidos }}
+                                        {{ setorConexao.informacoesSetor.medida.descricao }} {{ setorConexao.informacoesSetor.material.tipoMaterial.codigo }}
+                                        <strong> {{ setorConexao.informacoesSetor.material.nome }} </strong>
+                                        <i class="pi pi-arrow-right"></i>
+                                        {{ setorConexao.realProducaoDoSetor}}
+                                    </p>
+                                </div>
+                            </p-fieldset>
                         </div>
-                        <div class="w-full flex flex-row items-center">
-                            Plutônio 235
-                            <p-divider layout="vertical" />
-                            <div class="flex  w-full flex-row items-center gap-2">
-                                200TON <i class="pi pi-arrow-right"></i> 86TON
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-row items-center">
-                            Xenônio 235
-                            <p-divider layout="vertical" />
-                            <div class="flex w-full flex-row items-center gap-2">
-                                200TON <i class="pi pi-arrow-right"></i> 86TON
-                            </div>
+                        <div class="w-2/3">
+                            <p-panel>
+                                <ng-template pTemplate="header">
+                                    <div class="flex items-center gap-2 flex-row justify-between w-full">
+                                        <strong>
+                                            Conexões
+                                        </strong>
+                                        <reactor-selecao-de-conexao 
+                                            [setor]="setorConexao.informacoesSetor"
+                                            [service]="conexoesService"
+                                            [possiveisFornecedores]="setorConexao.fornecedoresDisponiveisParaFornecer"
+                                            [possiveisSetores]="setorConexao.setoresDisponiveisParaFornecer"/>
+                                    </div>
+                                </ng-template>
+                                <div class="h-48 w-full overflow-auto">
+                                    <p-table [value]="setorConexao.setoresQueJaSeLigam" [tableStyle]="{ 'min-width': '50rem' }">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Prioridade</th>
+                                                <th>Fornecido</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-setor>
+                                            <tr>
+                                                <td>{{ setor.tipoConexao == 'SETOR' ? setor.provedorCasoTipoConexaoSejaSetor.nome : setor.provedorCasoTipoConexaoSejaFornecedor.nome }}</td>
+                                                <td>{{ setor.prioridade }}</td>
+                                                <td>{{ setor.tipoConexao == 'SETOR' ? setor.provedorCasoTipoConexaoSejaSetor.quantidadeItensProduzidos : setor.provedorCasoTipoConexaoSejaFornecedor.quantidadeItensFornecedor  }}</td>
+                                                <td>
+                                                    <button pButton 
+                                                        (click)="removerConexao(setor.id)"
+                                                        severity="danger" 
+                                                        [text]="true">
+                                                        Remover
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </p-panel>
+                            
                         </div>
                     </div>
-                    <div class="flex flex-col w-1/3">
-
-                    </div>
-                </div>
-
-            </p-accordion-content>
-        </p-accordion-panel>
     
-    </p-accordion>
+                </p-accordion-content>
+            </p-accordion-panel>
+        
+        </p-accordion>
+    }
 </div>

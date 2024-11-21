@@ -1,0 +1,101 @@
+<button (click)="dialogAberto = true" pButton severity="success">
+    <i class="pi pi-plus"></i>
+</button>
+
+<p-popover #popOverPrioridade (onHide)="prioriodade = null">
+    <div class="w-64 flex flex-col gap-2">
+        <strong>Prioridade</strong>
+        <p>Qual é o nível da prioridade que você deseja para o setor/fornecedor?</p>
+        <p-divider />
+        <input [(ngModel)]="prioriodade" type="text" pInputText placeholder="Informe o nível aqui" class="w-full">
+        <p-divider />
+        <button pButton severity="success" (click)="cadastrarConexao()">
+            Criar
+        </button>
+    </div>
+</p-popover>
+
+<p-dialog [modal]="true" styleClass="w-11/12" (onHide)="limparCampos()" [draggable]="false" header="Criar uma Conexão" [(visible)]="dialogAberto">
+    <div class="overflow-auto flex flex-row gap-2">
+        <div class="w-1/2">
+            <h2><strong>Setores</strong></h2>
+            <p-table [value]="possiveisSetores()!">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Fornecido</th>
+                        <th>Qtd</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-setor>
+                    <tr>
+                        <td>
+                            <button pButton severity="success"
+                                #botao
+                                (click)="[
+                                    popOverPrioridade.toggle($event, botao),
+                                    setorFornecedorSelecionado = setor,
+                                    tipoConexao = 'SETOR'
+                                ]">
+                                Criar Conexão
+                            </button>
+                        </td>
+                        <td>
+                            {{ setor.material.nome }}
+                        </td>
+                        <td>
+                            <div class="flex flex-col gap-2">
+                                <strong>{{ setor.material.tipoMaterial.codigo }}</strong>
+                                {{ setor.medida.descricao }} {{ setor.material.nome }}
+                            </div>
+                        </td>
+                        <td>
+                            {{ setor.quantidadeItensProduzidos }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="w-1/2">
+            <h2><strong>Fornecedores</strong></h2>
+            <p-table [value]="possiveisFornecedores()!">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Fornecido</th>
+                        <th>Qtd</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-fornecedor>
+                    <tr>
+                        <td>
+                            <button pButton severity="success"
+                                #botao
+                                (click)="[
+                                    popOverPrioridade.toggle($event, botao),
+                                    setorFornecedorSelecionado = fornecedor,
+                                    tipoConexao = 'FORNECEDOR'
+                                ]">
+                                Criar Conexão
+                            </button>
+                        </td>
+                        <td>
+                            {{ fornecedor.material.nome }}
+                        </td>
+                        <td>
+                            <div class="flex flex-col gap-2">
+                                <strong>{{ fornecedor.material.tipoMaterial.codigo }}</strong>
+                                {{ fornecedor.medida.descricao }} {{ fornecedor.material.nome }}
+                            </div>
+                        </td>
+                        <td>
+                            {{ fornecedor.quantidadeItensFornecedor }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</p-dialog>

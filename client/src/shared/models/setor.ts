@@ -22,9 +22,10 @@ export class SetorComDependencias {
         public nome: string,
         public quantidadeItensProduzidos: number,
         public maximoFuncionarios: number,
+        public funcionariosTrabalhando: number,
         public medida: Medida,
         public material: Material,
         public tipoSetor: TipoSetor,
-        public dependencias: Array<{medida: Medida | null, material: Material | null, qtd: number}>
+        public dependencias: Array<{medida: Medida | null, material: Material | null, qtd: number, dependenciaAtendida?: any, quantidadeProferidaPorProvedores?: any }>
     ) {}
 }
