@@ -7,6 +7,9 @@ import { TipoVareta } from "../enums/tipo-vareta.enum";
 import { HttpClient } from "@angular/common/http";
 import { Vareta } from "../models/vareta";
 import { MessageService } from "primeng/api";
+import { Material } from "../models/material";
+import { FornecedoresVaretas } from "../models/fornecedor-varetas";
+import { ProfundidadeDasVaretas } from "../models/profundidade-das-varetas";
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +21,8 @@ export class ReatorAndUsinaService {
     private socket$: WebSocketSubject<any> | null = null;
     public usinaStatus = signal<UsinaStatus | null>(null);
     public varetas = signal<Array<Vareta> | null>(null);
+    public fornecedoresDeVaretas = signal<FornecedoresVaretas | null>(null);
+    public profundidadeDasVaretas = signal<ProfundidadeDasVaretas | null>(null);
 
     constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
@@ -27,16 +32,32 @@ export class ReatorAndUsinaService {
                 url: `ws://26.177.123.161:8080/ws`,
                 deserializer: (e) => e.data,
             });
-
+    
             this.socket$.subscribe({
                 next: (res) => {
-                    this.usinaStatus.set(JSON.parse(res) as UsinaStatus);
+                    const newStatus = JSON.parse(res) as UsinaStatus;
+                    if (JSON.stringify(this.usinaStatus()) !== JSON.stringify(newStatus)) {
+                        this.usinaStatus.set(newStatus);
+                    }
                 },
-                error: (err) => {
-                    console.error("erro!", err);
-                }
-            })
+                error: (err) => console.error("WebSocket error", err),
+            });
         }
+    }
+
+    public listarProfundidadeDasVaretas() {
+        this.httpClient.get<ProfundidadeDasVaretas>(`${this.environment.backendUrl}/varetas/buscar-profundidade-vareta`).subscribe({
+            next: (prof) => {
+                this.profundidadeDasVaretas.set(prof);
+            },
+            error: () => {
+                this.messageService.add({
+                    severity: "error",
+                    detail: "AEU NÃO GUENTO MAI :((((((",
+                    summary: "Jair volsornaor"
+                })
+            }
+        })
     }
 
     public listarTodasAsVaretas() {
@@ -73,6 +94,36 @@ export class ReatorAndUsinaService {
                     severity: "error",
                     detail: "Ocorreu um erro ao alterar o tipo da vareta",
                     summary: "Jair volsornaor"
+                })
+            }
+        })
+    }
+
+    public listarFornecedoresDasVaretasDeControle() {
+        this.httpClient.get<FornecedoresVaretas>(`${this.environment.backendUrl}/varetas/buscar-fornecedores-varetas`).subscribe({
+            next: (lista) => {
+                this.fornecedoresDeVaretas.set(lista);
+            }, 
+            error: () => {
+                this.messageService.add({
+                    severity: "Sla porra",
+                    detail: "Ocorreu um erro ao alterar o tipo da vareta",
+                    summary: "Jair volsornaor"
+                })
+            }
+        })
+    }
+
+    public mudarFornecedorDoTipoVareta(tipoVaretaAlterado: string, idFornecedor: number) {
+        return this.httpClient.put<void>(`${this.environment.backendUrl}/varetas/mudar-fornecedor-do-tipo-vareta/${idFornecedor}`, tipoVaretaAlterado);
+    }
+
+    public mudarProfundidadeDasVaretas(profundidade: ProfundidadeDasVaretas) {
+        this.httpClient.put<void>(`${this.environment.backendUrl}/varetas/mudar-profundidade`, profundidade).subscribe({
+            error: () => {
+                this.messageService.add({
+                    severity: "error",
+                    summary: "ERRO AO ALTERAR"
                 })
             }
         })

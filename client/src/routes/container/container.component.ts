@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit, signal } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, signal } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ContainerHeaderComponent } from "./container-header/container-header.component";
 import { ContainerSidebarComponent } from "./container-sidebar/container-sidebar.component";
@@ -15,7 +15,8 @@ import { UsinaStatus } from "../../shared/models/usina-status";
         ContainerHeaderComponent,
         ContainerSidebarComponent,
     ],
-    standalone: true
+    standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContainerRoute implements OnInit {
     public reatorAndUsinaService = inject(ReatorAndUsinaService);

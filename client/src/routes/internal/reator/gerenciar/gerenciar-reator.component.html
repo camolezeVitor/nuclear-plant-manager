@@ -4,31 +4,37 @@
             <div class="flex flex-col gap-1">
                 <p><strong>Fornecedor do Mat/Combustivel</strong></p>
                 <p-select 
-                    [options]="fornecedoresDoMaterialDoCombustivelDoReator" 
-                    optionLabel="nome" optionValue="value"
-                    [filter]="true" />
-                <p>Fator: 5.4</p>
-                <p>Preço por 100Horas: R$200.000</p>
+                    [(ngModel)]="fornecedorDeCombustivelSelecionado"
+                    #valorCombs
+                    [options]="fornecedoresDeMateriais()?.fornecedoresVaretasDeCombustivel" 
+                    optionLabel="nome"
+                    (onChange)="alterarFornecedor('VARETA_DE_COMBUSTIVEL', valorCombs.value)"
+                    [filter]="true">
+                </p-select>
             </div>
             <p-divider />
             <div class="flex flex-col gap-1">
                 <p><strong>Fornecedor do Mat/Barras de Controle</strong></p>
                 <p-select 
-                    [options]="fornecedoresDoMaterialDasBarraDeControleDoReator" 
-                    optionLabel="nome" optionValue="value"
-                    [filter]="true" />
-                <p>Fator: 5.4</p>
-                <p>Preço por 100Horas: R$200.000</p>
+                    [(ngModel)]="fornecedorDeControleSelecionado"
+                    [options]="fornecedoresDeMateriais()?.fornecedoresVaretasDeControle" 
+                    optionLabel="nome"
+                    #valorControl
+                    (onChange)="alterarFornecedor('VARETA_DE_CONTROLE', valorControl.value)"
+                    [filter]="true">
+                </p-select>
             </div>
             <p-divider />
             <div class="flex flex-col gap-1">
                 <p><strong>Fornecedor da Mat/Barras Mediadoras</strong></p>
                 <p-select 
-                    [options]="fornecedoresDoMaterialDasBarrasMediadorasDoReator" 
-                    optionLabel="nome" optionValue="value"
-                    [filter]="true" />
-                <p>Fator: 5.4</p>
-                <p>Preço por 100Horas: R$200.000</p>
+                [(ngModel)]="fornecedorDeMediadorSelecionado"
+                    [options]="fornecedoresDeMateriais()?.fornecedoresVaretasMediadores" 
+                    optionLabel="nome"
+                    #valorMod
+                    (onChange)="alterarFornecedor('VARETA_DE_MEDIACAO', valorMod.value)"
+                    [filter]="true">
+                </p-select>
             </div>
         </div>
     </p-panel>

@@ -6,11 +6,13 @@ import { KnobModule } from 'primeng/knob';
 import { Vareta } from "../../../../shared/models/vareta";
 import { ReatorAndUsinaService } from "../../../../shared/services/reator.service";
 import { POSICAO_DAS_VARETAS } from "./posicao-das-varetas";
+import { ProfundidadeDasVaretas } from "../../../../shared/models/profundidade-das-varetas";
+import { FormsModule } from "@angular/forms";
 @Component({
     selector: "reactor-varetas",
     templateUrl: "varetas.component.html",
     styleUrls: ["varetas.component.css"],
-    imports: [VaretaComponent,PanelModule,DividerModule, KnobModule],
+    imports: [VaretaComponent,PanelModule,DividerModule, KnobModule, FormsModule],
     standalone: true,
     
 })
@@ -22,16 +24,23 @@ export class VaretasRoute {
 
     private reatorAndUsinaService = inject(ReatorAndUsinaService);
     public listaDeVaretas = signal<Array<Vareta> | null>(null);
+    public profundidadeDasVaretas = signal<ProfundidadeDasVaretas | null>(null);
   
     constructor() {}
   
     ngAfterViewInit() {
         this.cdr.detectChanges();
         this.reatorAndUsinaService.listarTodasAsVaretas();
+        this.reatorAndUsinaService.listarProfundidadeDasVaretas();
+        this.profundidadeDasVaretas = this.reatorAndUsinaService.profundidadeDasVaretas;
         this.listaDeVaretas = this.reatorAndUsinaService.varetas;
         setTimeout(() => {
             console.log(this.varetas);
         }, 5000);
+    }
+
+    atualizarProfundidadeDoReator() {
+        this.reatorAndUsinaService.mudarProfundidadeDasVaretas(this.profundidadeDasVaretas()!);
     }
     
 }

@@ -20,6 +20,7 @@ import { Fornecedor } from "../../../../../shared/models/fornecedor";
 import { DialogModule } from "primeng/dialog";
 import { DividerModule } from "primeng/divider";
 import { SetorComDependencias } from "../../../../../shared/models/setor";
+import { MessageService } from "primeng/api";
 
 @Component({
     selector: "reactor-setor-formulario",
@@ -40,6 +41,7 @@ export class FormularioSetorComponent implements OnInit {
     private materialService = inject(MaterialService);
     private tipoSetorService = inject(TipoSetorService);
     private fornecedorService = inject(FornecedorService);
+    private messageService = inject(MessageService);
 
     ngOnInit(): void {
         this.medidasService.listarMedidas();
@@ -104,6 +106,10 @@ export class FormularioSetorComponent implements OnInit {
 
     adicionarDependencia() {
         this.dependencias.push({...this.formularioMedida});
+        this.messageService.add({
+            severity: "success",
+            summary: "Dependência adicionada com sucesso!"
+        })
     }
 
     removerDependencia(index: number) {

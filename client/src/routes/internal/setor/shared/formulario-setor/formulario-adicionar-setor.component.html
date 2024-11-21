@@ -22,10 +22,12 @@
     }
 
     @if (materiais() != null) {
-      <div class="flex flex-col">
+      <div class="flex flex-col w-full">
         <label for="idMaterialDem">Material Demandado</label>
         <p-select
           id="idMaterialDem"
+          [style]="{width: '100%'}"
+          appendTo="body"
           [(ngModel)]="formularioMedida.material"
           [options]="materiais()!"
           optionLabel="nome"
@@ -122,6 +124,8 @@
       <h2><strong>Dependências do Setor</strong></h2>
       @for (dep of dependencias; track $index) {
         <div class="flex flex-row justify-between items-center">
+          <i class="pi pi-times text-red-700 cursor-pointer" 
+            (click)="removerDependencia($index)"></i>
           <p>
             {{dep.material?.nome}}
             {{dep.medida?.descricao}}

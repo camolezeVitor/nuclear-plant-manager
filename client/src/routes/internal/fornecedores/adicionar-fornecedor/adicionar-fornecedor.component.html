@@ -26,8 +26,29 @@
                         scrollHeight="250px"
                         placeholder="Selecione o material"
                         [options]="materiais()!" 
-                        optionLabel="nome" 
-                        optionValue="id" />
+                        optionLabel="nome"
+                        optionValue="id">
+
+                        <!-- Template para o item selecionado -->
+                        <ng-template let-selectedOption pTemplate="selectedItem">
+                            <div class="flex align-items-center w-full justify-between gap-2" *ngIf="selectedOption">
+                                <strong>{{ selectedOption.tipoMaterial.codigo }}</strong> 
+                                <p>{{ selectedOption.nome }}</p>
+                                <p>{{ selectedOption.multiplicador }}</p> 
+                            </div>
+                        </ng-template>
+
+                        <!-- Template para os itens na lista -->
+                        <ng-template let-item pTemplate="item">
+                            <div class="flex align-items-center w-full justify-between gap-2">
+                                <strong>{{ item.tipoMaterial.codigo }}</strong>
+                                <p>{{ item.nome }}</p>
+                                <p>{{ item.multiplicador }}</p>
+                            </div>
+                        </ng-template>
+
+                    </p-select>
+
                     <small>Informe o material do trem que o trem te fornece é nois 👍</small>
                 </div>
             }

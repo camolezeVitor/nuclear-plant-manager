@@ -1,7 +1,7 @@
 export class UsinaStatus {
     constructor(
         public dinheiroUsina: number,
-        public energiaProduzida: string,
+        public energiaProd: string,
         public horario: number,
         public dia: number,
         public console: string,
